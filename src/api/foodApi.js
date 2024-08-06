@@ -14,9 +14,28 @@ export const getFoodData = async (food) => {
 };
 
 // =============================================================================================
+// export const getYolo = async (image) => {
+//   const formData = new FormData();
+//   formData.append("image", image);
+//   const response = await axios.post(`http://localhost:5000/detact`, formData, {headers: { 'Content-Type': 'multipart/form-data' }});
+//   return response.data;
+// };
+
 export const getYolo = async (image) => {
-  const formData = new FormData();
-  formData.append("image", image);
-  const response = await axios.post(`http://localhost:5000/detact`, formData);
-  return response.data;
+  try {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const response = await axios.post('http://127.0.0.1:5000/detect', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // 이미지 전송 시의 Content-Type 설정
+      },
+      withCredentials: true,  // 필요시 쿠키 등을 전송할 때 사용
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error during YOLO request:', error);
+    throw error;  // 필요시 호출한 함수에서 에러를 처리하도록 하기 위해 에러를 던짐
+  }
 };
