@@ -4,11 +4,17 @@ import { getFoodData, getYolo } from "../api/foodApi";
 
 const AddMeal = () => {
   const [image, setImage] = useState();
+  const [imageFile, setImageFile] = useState();
   const [data, setData] = useState([]);
 
-  const encodeFileToBase64 = (fileBlob) => {
-    const reader = new FileReader();
+  const handleFileChange = (e) => {
+    // 파일 저장
+    const file = e.target.files[0];
+    setImageFile(file);
 
+    // 미리보기 이미지
+    const reader = new FileReader();
+    const fileBlob = e.target.files[0];
     reader.readAsDataURL(fileBlob);
 
     return new Promise((resolve) => {
@@ -21,24 +27,18 @@ const AddMeal = () => {
   };
 
   const getCalClicked = async () => {
-    const result = await getFoodData("밥");
-    setData({ ...result.body.items });
-    console.log(result.body.items);
+    const result = await getFoodData("피자");
+    setData((prevData) => [...prevData, ...result.body.items]);
   };
 
   const getName = async () => {
-    const result = await getYolo(image);
+    const result = await getYolo(imageFile).then(() => {
+      getCalClicked();
+    });
     console.log(result);
   };
 
-  const meal = {
-    mealId: 1,
-    image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_01.jpg",
-    title: "아침",
-    time: "09:18",
-    cal: 400,
-    tag: ["시리얼", "우유"],
-  };
+  console.log(data);
   return (
     <NoCalBasicLayout>
       <div className="my-5">
@@ -67,13 +67,13 @@ const AddMeal = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-6"
+              className="size-6"
             >
               <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
             <span>사진 촬영</span>
@@ -83,7 +83,7 @@ const AddMeal = () => {
             type="file"
             id="file-input"
             style={{ display: "none" }}
-            onChange={(e) => encodeFileToBase64(e.target.files[0])}
+            onChange={handleFileChange}
           />
 
           {/* Custom Button */}
@@ -112,29 +112,49 @@ const AddMeal = () => {
       <div className="border-gray-200 border w-full"></div>
 
       {/* 칼로리바 */}
-      <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
-        <div className="mb-2 font-[Pretendard-Medium] border-b-2 border-gray-300 w-full p-3">
-          갈비탕 <span>{meal.cal} kcal</span>
+      {data.map((info) => (
+        <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
+          <div className="flex justify-between mb-2 text-xs font-[Pretendard-Medium] border-b-2 border-gray-300 w-full p-3 px-4 items-center">
+            <div className="font-[Pretendard-Bold] text-xl">
+              {info.DESC_KOR}
+            </div>
+            <div className="text-end">
+              <div className="text-my-text-deepblack">
+                1회 제공량: {info.SERVING_WT} g
+              </div>
+              <div className="text-my-text-deepblack">
+                {info.NUTR_CONT1} kcal
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between font-[Pretendard-Regular] px-7 py-3">
+            <div className="flex flex-col items-center py-1">
+              <div className="text-center">탄수화물</div>
+              <span className="text-center">
+                {info.NUTR_CONT2 !== "N/A" ? info.NUTR_CONT2 : "0"} g
+              </span>
+            </div>
+            <div className="flex flex-col items-center py-1">
+              <div className="text-center">단백질</div>
+              <span className="text-center">
+                {info.NUTR_CONT3 !== "N/A" ? info.NUTR_CONT3 : "0"} g
+              </span>
+            </div>
+            <div className="flex flex-col items-center py-1">
+              <div className="text-center">지방</div>
+              <span className="text-center">
+                {info.NUTR_CONT4 !== "N/A" ? info.NUTR_CONT4 : "0"} g
+              </span>
+            </div>
+            <div className="flex flex-col items-center py-1">
+              <div className="text-center">당류</div>
+              <span className="text-center">
+                {info.NUTR_CONT5 !== "N/A" ? info.NUTR_CONT5 : "0"} g
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="flex justify-between font-[Pretendard-Light] px-7 py-3 ">
-          <div className=" py-1">
-            <div>탄수화물</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>단백질</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>지방</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>식이섬유</div>
-            <span>48.8 g</span>
-          </div>
-        </div>
-      </div>
+      ))}
 
       <div className="mb-20"></div>
       <div className="fixed flex bg-my-basic-green h-16 w-full bottom-0 text-white justify-center items-center font-[Pretendard-Regular] text-xl rounded-t-lg">

@@ -8,8 +8,9 @@ const foodApiStartWith = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService
 
 export const getFoodData = async (food) => {
   const response = await axios.get(
-    `${foodApiStartWith}desc_kor=${food}&pageNo=1&numOfRows=1&type=json`
+    `${foodApiStartWith}desc_kor=${food}&pageNo=1&numOfRows=5&type=json`
   );
+  console.log(response);
   return response.data;
 };
 
@@ -21,25 +22,27 @@ export const getFoodData = async (food) => {
 //   return response.data;
 // };
 
-export const getYolo = async (image) => {
+export const getYolo = async (file) => {
   try {
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("image", file);
 
     const response = await axios.post(
       "http://127.0.0.1:5000/detect",
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data", // 이미지 전송 시의 Content-Type 설정
+          "Content-Type": "multipart/form-data",
         },
-        withCredentials: true, // 필요시 쿠키 등을 전송할 때 사용
       }
     );
 
     return response.data;
   } catch (error) {
-    console.error("Error during YOLO request:", error);
-    throw error; // 필요시 호출한 함수에서 에러를 처리하도록 하기 위해 에러를 던짐
+    console.error(
+      "Error during YOLO request:",
+      error.response ? error.response.data : error.message
+    );
+    throw error;
   }
 };
