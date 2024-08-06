@@ -7,8 +7,12 @@ const useCustomMove = () => {
     navigate(-1);
   };
 
-  const moveToMain = () => {
+  const moveToLandingPage = () => {
     navigate({ pathname: `/` });
+  };
+
+  const moveToMain = () => {
+    navigate({ pathname: `/main` });
   };
 
   const moveToAdd = () => {

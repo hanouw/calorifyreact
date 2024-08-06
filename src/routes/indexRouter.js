@@ -4,6 +4,7 @@ import memberRouter from "./memberRouter";
 import LoadingPage from "../component/common/LoadingPage";
 
 const Main = lazy(() => import("../pages/Main"));
+const LandingPage = lazy(() => import("../pages/LandingPage"));
 const AddMeal = lazy(() => import("../pages/AddMeal"));
 const Detail = lazy(() => import("../pages/MealDetail"));
 const MemberIndex = lazy(() => import("../pages/member/MemberIndex"));
@@ -12,6 +13,14 @@ const Router = () => {
   return useRoutes([
     {
       path: "",
+      element: (
+        <Suspense fallback={<LoadingPage />}>
+          <LandingPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "main",
       element: (
         <Suspense fallback={<LoadingPage />}>
           <Main />
