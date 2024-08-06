@@ -35,7 +35,7 @@ const AddMeal = () => {
     const result = await getYolo(imageFile).then(() => {
       getCalClicked();
     });
-    console.log(result);
+    setImage(result.image);
   };
 
   console.log(data);

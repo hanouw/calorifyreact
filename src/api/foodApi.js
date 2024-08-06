@@ -8,7 +8,7 @@ const foodApiStartWith = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService
 
 export const getFoodData = async (food) => {
   const response = await axios.get(
-    `${foodApiStartWith}desc_kor=${food}&pageNo=1&numOfRows=5&type=json`
+    `${foodApiStartWith}desc_kor=${food}&pageNo=1&numOfRows=1&type=json`
   );
   console.log(response);
   return response.data;
