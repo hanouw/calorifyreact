@@ -89,7 +89,7 @@ const HeaderComponents = ({ layout }) => {
         } ${
           layout === "basic"
             ? "shadow-lg shadow-gray-400"
-            : "shadow-md h-[108px]"
+            : "shadow-md h-[109px]"
         }`}
       >
         {isCalendar ? (

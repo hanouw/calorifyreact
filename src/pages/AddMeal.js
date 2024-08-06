@@ -3,11 +3,21 @@ import NoCalBasicLayout from "../layouts/NoCalBasicLayout";
 import { getFoodData, getYolo } from "../api/foodApi";
 
 const AddMeal = () => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState();
   const [data, setData] = useState([]);
 
-  const handleChange = (e) => {
-    setImage(e.target.value);
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(fileBlob);
+
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImage(reader.result);
+
+        resolve();
+      };
+    });
   };
 
   const getCalClicked = async () => {
@@ -32,7 +42,12 @@ const AddMeal = () => {
   return (
     <NoCalBasicLayout>
       <div className="bg-red-50 w-full ">
-        <input type="file" onChange={handleChange} />
+        <input
+          type="file"
+          onChange={(e) => {
+            encodeFileToBase64(e.target.files[0]);
+          }}
+        />
         <label htmlFor="photo" className="flex justify-center">
           <img
             //사용자가 이미지 파일을 업로드하면 해당 이미지를 보여주고, 없으면 기본 이미지를 보여준다.
