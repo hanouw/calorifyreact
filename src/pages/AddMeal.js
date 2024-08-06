@@ -41,43 +41,27 @@ const AddMeal = () => {
   };
   return (
     <NoCalBasicLayout>
-      <div className="bg-red-50 w-full ">
-        <input
-          type="file"
-          onChange={(e) => {
-            encodeFileToBase64(e.target.files[0]);
-          }}
-        />
-        <label htmlFor="photo" className="flex justify-center">
-          <img
-            //사용자가 이미지 파일을 업로드하면 해당 이미지를 보여주고, 없으면 기본 이미지를 보여준다.
-            src={image ? image : `/assets/imgs/meal.png`}
-            alt="이미지 업로드"
-            className="w-20"
-          />
-        </label>
-        <div className="bg-my-graph-orange h-10 w-20" onClick={() => getName()}>
-          제출하기
-        </div>
-      </div>
       <div className="my-5">
         <div className="flex text-my-basic-green text-start pl-10 font-[Pretendard-Medium] text-xl">
           사진등록
         </div>
 
         <div className="relative flex justify-center py-10">
-          <div className="w-52 h-52 overflow-hidden rounded-3xl">
+          <div className="w-52 h-52 overflow-hidden rounded-3xl border p-1">
             <img
-              src={meal.image}
+              src={image ? image : `/assets/imgs/diet.png`}
               alt="description"
               className="w-full h-full object-cover"
             />
           </div>
         </div>
+        <div className="bg-my-graph-orange h-10 w-20" onClick={() => getName()}>
+          제출하기
+        </div>
         <div className="flex justify-between items-center text-my-text-ligthgreen font-[Pretendard-Regular] text-sm pb-5 px-10">
           <div
             className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"
-            // onClick={() => }
+            onClick={() => getCalClicked()}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,20 +78,29 @@ const AddMeal = () => {
             </svg>
             <span>사진 촬영</span>
           </div>
+          {/* Hidden File Input */}
+          <input
+            type="file"
+            id="file-input"
+            style={{ display: "none" }}
+            onChange={(e) => encodeFileToBase64(e.target.files[0])}
+          />
+
+          {/* Custom Button */}
           <div
-            className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"
-            onClick={() => getCalClicked()}
+            className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl cursor-pointer"
+            onClick={() => document.getElementById("file-input").click()}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-6"
+              className="w-6 h-6"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
             <span>앨범에서 선택</span>
@@ -119,29 +112,6 @@ const AddMeal = () => {
       <div className="border-gray-200 border w-full"></div>
 
       {/* 칼로리바 */}
-      <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
-        <div className="mb-2 font-[Pretendard-Medium] border-b-2 border-gray-300 w-full p-3">
-          갈비탕 <span>{meal.cal} kcal</span>
-        </div>
-        <div className="flex justify-between font-[Pretendard-Light] px-7 py-3 ">
-          <div className=" py-1">
-            <div>탄수화물</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>단백질</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>지방</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>식이섬유</div>
-            <span>48.8 g</span>
-          </div>
-        </div>
-      </div>
       <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
         <div className="mb-2 font-[Pretendard-Medium] border-b-2 border-gray-300 w-full p-3">
           갈비탕 <span>{meal.cal} kcal</span>
