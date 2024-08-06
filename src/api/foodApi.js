@@ -14,13 +14,20 @@ export const getFoodData = async (food) => {
 };
 
 // =============================================================================================
+// export const getYolo = async (image) => {
+//   const formData = new FormData();
+//   formData.append("image", image);
+//   const response = await axios.post(`http://localhost:5000/detact`, formData, {headers: { 'Content-Type': 'multipart/form-data' }});
+//   return response.data;
+// };
+
 export const getYolo = async (image) => {
   try {
     const formData = new FormData();
     formData.append("image", image);
 
     const response = await axios.post(
-      "http://localhost:5000/detact",
+      "http://127.0.0.1:5000/detect",
       formData,
       {
         headers: {
