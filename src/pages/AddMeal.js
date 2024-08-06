@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import NoCalBasicLayout from "../layouts/NoCalBasicLayout";
+import { getFoodData, getYolo } from "../api/foodApi";
 
 const AddMeal = () => {
+  const [image, setImage] = useState("");
+  const [data, setData] = useState([]);
+
+  const handleChange = (e) => {
+    setImage(e.target.value);
+  };
+
+  const getCalClicked = async () => {
+    const result = await getFoodData("밥");
+    setData({ ...result.body.items });
+    console.log(result.body.items);
+  };
+
+  const getName = async () => {
+    const result = await getYolo(image);
+    console.log(result);
+  };
+
   const meal = {
     mealId: 1,
     image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_01.jpg",
@@ -12,6 +31,20 @@ const AddMeal = () => {
   };
   return (
     <NoCalBasicLayout>
+      <div className="bg-red-50 w-full ">
+        <input type="file" onChange={handleChange} />
+        <label htmlFor="photo" className="flex justify-center">
+          <img
+            //사용자가 이미지 파일을 업로드하면 해당 이미지를 보여주고, 없으면 기본 이미지를 보여준다.
+            src={image ? image : `/assets/imgs/meal.png`}
+            alt="이미지 업로드"
+            className="w-20"
+          />
+        </label>
+        <div className="bg-my-graph-orange h-10 w-20" onClick={() => getName()}>
+          제출하기
+        </div>
+      </div>
       <div className="my-5">
         <div className="flex text-my-basic-green text-start pl-10 font-[Pretendard-Medium] text-xl">
           사진등록
@@ -27,7 +60,10 @@ const AddMeal = () => {
           </div>
         </div>
         <div className="flex justify-between items-center text-my-text-ligthgreen font-[Pretendard-Regular] text-sm pb-5 px-10">
-          <div className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl">
+          <div
+            className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"
+            // onClick={() => }
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -43,7 +79,10 @@ const AddMeal = () => {
             </svg>
             <span>사진 촬영</span>
           </div>
-          <div className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl">
+          <div
+            className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"
+            onClick={() => getCalClicked()}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -111,29 +150,7 @@ const AddMeal = () => {
           </div>
         </div>
       </div>
-      <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
-        <div className="mb-2 font-[Pretendard-Medium] border-b-2 border-gray-300 w-full p-3">
-          갈비탕 <span>{meal.cal} kcal</span>
-        </div>
-        <div className="flex justify-between font-[Pretendard-Light] px-7 py-3 ">
-          <div className=" py-1">
-            <div>탄수화물</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>단백질</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>지방</div>
-            <span>48.8 g</span>
-          </div>
-          <div className=" py-1">
-            <div>식이섬유</div>
-            <span>48.8 g</span>
-          </div>
-        </div>
-      </div>
+
       <div className="mb-20"></div>
       <div className="fixed flex bg-my-basic-green h-16 w-full bottom-0 text-white justify-center items-center font-[Pretendard-Regular] text-xl rounded-t-lg">
         확인 및 등록
