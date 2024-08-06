@@ -3,7 +3,7 @@ import BasicLayout from "../layouts/BasicLayout";
 import useCustomMove from "../hooks/useCustomMove";
 
 const Main = () => {
-  const { moveToDetail } = useCustomMove();
+  const { moveToDetail, moveToAdd } = useCustomMove();
 
   const [mealList, setMealList] = useState([
     {
@@ -47,6 +47,7 @@ const Main = () => {
           viewBox="0 0 24 24"
           fill="white"
           className="size-6"
+          onClick={() => moveToAdd()}
         >
           <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
           <path
@@ -64,7 +65,10 @@ const Main = () => {
           key={meal.mealId}
           className="grid items-center px-10 mb-4 pb-4 border-b-2"
         >
-          <div className="flex items-center" onClick={() => moveToDetail()}>
+          <div
+            className="flex items-center cursor-pointer"
+            onClick={() => moveToDetail()}
+          >
             {/* 첫 번째 칸: image와 title */}
             <div className="relative">
               <div className="w-40 h-36 overflow-hidden rounded-3xl">

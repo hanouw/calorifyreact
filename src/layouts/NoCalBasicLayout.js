@@ -4,7 +4,7 @@ const BasicLayout = ({ children }) => {
   return (
     <>
       <Header layout="noCal" />
-      <div className="pt-[185px]">{children}</div>
+      <div className="pt-[115px]">{children}</div>
     </>
   );
 };

@@ -13,6 +13,7 @@ const initState = {
   memBirth: "",
   memEmail: "",
   memNickname: "",
+  memSex: "",
 };
 
 const Signup = () => {
@@ -54,7 +55,7 @@ const Signup = () => {
       <div className="font-[Pretendard-Bold] text-3xl grid place-items-center mt-10">
         회원가입
       </div>
-      <div className="sm:w-1/2 md:w-1/3 px-7 my-7">
+      <div className=" px-7 my-7">
         <input
           name="memId"
           type="textarea"
@@ -65,7 +66,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         <input
           name="password"
           type="password"
@@ -76,7 +77,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         <input
           name="passwordConfirm"
           type="password"
@@ -87,7 +88,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         <input
           name="memNickname"
           type="textarea"
@@ -98,7 +99,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         <input
           name="memBirth"
           type="date"
@@ -109,7 +110,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         <input
           name="memEmail"
           type="email"
@@ -120,7 +121,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         {/* <input
           name="memSex"
           type="radio"
@@ -132,16 +133,16 @@ const Signup = () => {
         /> */}
         <select
           name="memSex"
-          value={loginParam.height}
+          value={loginParam.memSex}
           onChange={handleChange}
           className={inputClassName}
           required
         >
           <option value="Male">남자</option>
-          <option value="FeMale">여자</option>
+          <option value="Female">여자</option>
         </select>
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full  px-7 mb-4 my-7 rounded-xl">
         <input
           name="height"
           type="textarea"
@@ -152,7 +153,7 @@ const Signup = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full px-7 mb-4 my-7 rounded-xl">
         <input
           name="weight"
           type="textarea"
@@ -169,7 +170,7 @@ const Signup = () => {
         </button>
       </div>
       <div
-        className="text-my-text-deepblack underline"
+        className="text-my-text-deepblack underline cursor-pointer"
         onClick={() => moveToLogin()}
       >
         로그인하기

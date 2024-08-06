@@ -22,7 +22,7 @@ const MyPage = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="size-7 mr-1"
+          className="size-7 mr-1 cursor-pointer"
           onClick={() => moveToMain()}
         >
           <path
@@ -50,7 +50,7 @@ const MyPage = () => {
           <div className="flex justify-between font-[Pretendard-Medium] text-base text-my-text-deepblack px-5">
             <div className="bg-white rounded-2xl px-7 py-1">정보수정</div>
             <div
-              className="bg-white rounded-2xl px-7 py-1"
+              className="bg-white rounded-2xl px-7 py-1 cursor-pointer"
               onClick={handleLogout}
             >
               로그아웃
@@ -58,7 +58,10 @@ const MyPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex w-full bg-red-50" onClick={() => moveToLogin()}>
+      <div
+        className="flex w-full bg-red-50 cursor-pointer"
+        onClick={() => moveToLogin()}
+      >
         로그인페이지로이동
       </div>
     </>

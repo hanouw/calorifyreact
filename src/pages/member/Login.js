@@ -47,7 +47,7 @@ const LoginPage = () => {
       <div className="font-[Pretendard-Bold] text-3xl grid place-items-center mt-36 mb-12">
         로그인
       </div>
-      <div className="sm:w-1/2 md:w-1/3 px-7 my-7">
+      <div className="w-full px-7 my-7">
         <input
           name="memId"
           type="text"
@@ -58,7 +58,7 @@ const LoginPage = () => {
           required
         />
       </div>
-      <div className="w-full sm:w-1/2 md:w-1/3 px-7 mb-4 my-7 rounded-xl">
+      <div className="w-full px-7 mb-4 my-7 rounded-xl">
         <input
           name="password"
           type="password"
@@ -69,13 +69,13 @@ const LoginPage = () => {
           required
         />
       </div>
-      <div className="mx-7 my-10 border">
+      <div className="mx-7 my-10 border cursor-pointer">
         <button className={buttonClassName} onClick={handleClickLogin}>
           로그인하기
         </button>
       </div>
       <div
-        className="text-my-text-deepblack underline"
+        className="text-my-text-deepblack underline cursor-pointer"
         onClick={() => moveToSignup()}
       >
         회원가입하기

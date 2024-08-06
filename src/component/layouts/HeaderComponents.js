@@ -86,18 +86,22 @@ const HeaderComponents = ({ layout }) => {
       <div
         className={`bg-my-basic-green rounded-bl-[48px] p-7 transition-all duration-400 ease-in-out ${
           isCalendar ? "h-5/6" : "h-[164px]"
-        } ${layout === "basic" ? "shadow-lg shadow-gray-400" : "shadow-md"}`}
+        } ${
+          layout === "basic"
+            ? "shadow-lg shadow-gray-400"
+            : "shadow-md h-[109px]"
+        }`}
       >
         {isCalendar ? (
           <div>
             <span
-              className="flex text-start font-[Pretendard-Medium] text-3xl text-white"
+              className="flex text-start font-[Pretendard-Medium] text-3xl text-white cursor-pointer"
               onClick={() => setIsCalendar(!isCalendar)}
             >
               Calorify
             </span>
             <div
-              className="justify-center text-white text-xl font-[Pretendard-Bold] px-10 pt-10 pb-7"
+              className="justify-center text-white text-xl font-[Pretendard-Bold] px-10 pt-10 pb-7 cursor-pointer"
               onClick={() => setIsCalendar(!isCalendar)}
             >
               {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
@@ -168,7 +172,7 @@ const HeaderComponents = ({ layout }) => {
               ))}
               {dates.map((date) => (
                 <div
-                  className="grid justify-center place-items-center text-sm mb-10"
+                  className="grid justify-center place-items-center text-sm mb-10 cursor-pointer"
                   key={date}
                   onClick={() => dayClicked(date)}
                 >
@@ -188,7 +192,7 @@ const HeaderComponents = ({ layout }) => {
           <div>
             <div className="flex justify-between items-center pb-10">
               <span
-                className="font-[Pretendard-Medium] text-3xl text-white w-full text-start"
+                className="font-[Pretendard-Medium] text-3xl text-white w-full text-start cursor-pointer"
                 onClick={() => {
                   layout === "basic"
                     ? setIsCalendar(!isCalendar)
@@ -200,16 +204,20 @@ const HeaderComponents = ({ layout }) => {
               <img
                 src={process.env.PUBLIC_URL + "/assets/imgs/meal.png"}
                 alt="Profile"
-                className="max-w-10 rounded-full bg-white"
+                className="max-w-10 rounded-full bg-white cursor-pointer"
                 onClick={moveToMyPage}
               />
             </div>
 
-            <div className="flex font-[Pretendard-Regular] text-sm text-white justify-between items-center">
+            <div
+              className={`flex font-[Pretendard-Regular] text-sm text-white justify-between items-center ${
+                layout !== "basic" && "hidden"
+              }`}
+            >
               {days.map((day) => (
                 <div
                   key={day.getDate()}
-                  className={`w-7 h-7 flex items-center justify-center ${
+                  className={`w-7 h-7 flex items-center justify-center cursor-pointer ${
                     currentDate.getDate() === day.getDate() &&
                     "rounded-full border border-white"
                   }`}

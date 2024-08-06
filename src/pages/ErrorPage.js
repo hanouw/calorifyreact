@@ -12,7 +12,7 @@ const ErrorPage = () => {
         <div className="flex justify-center">
           <button
             onClick={() => navigate(-2)}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 cursor-pointer"
           >
             이전 화면으로 돌아가기
           </button>
