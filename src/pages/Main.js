@@ -9,23 +9,23 @@ const Main = () => {
   const { moveToDetail, moveToAdd } = useCustomMove();
   const { date } = useDate();
   const loginInfo = useSelector((state) => state.loginSlice);
+  const address = `C:\aaa_yonsei\Projects\calorifyData\saved`;
 
-  const [mealList, setMealList] = useState([
-    {
-      mealId: 1,
-      image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_01.jpg",
-      title: "아침",
-      time: "09:18",
-      cal: 400,
-      tag: ["시리얼", "우유"],
-    },
-  ]);
+  const [mealList, setMealList] = useState([]);
+
+  const formatDate = (date) => {
+    return date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false, // 24시간 형식으로 출력
+    });
+  };
 
   useEffect(() => {
     console.log(date);
-    getMeal(loginInfo.memId, date).then((data) => {
+    getMeal({ memId: loginInfo.memId, date: date }).then((data) => {
       console.log(data);
-      setMealList(data);
+      setMealList(data.RESULT);
     });
   }, [date]);
   return (
@@ -49,9 +49,9 @@ const Main = () => {
       <div className="text-start font-[Pretendard-Medium] text-lg text-my-basic-green pl-10 my-3">
         식단
       </div>
-      {mealList.map((meal) => (
+      {mealList.map((meal, index) => (
         <div
-          key={meal.mealId}
+          key={index}
           className="grid items-center px-10 mb-4 pb-4 border-b-2"
         >
           <div
@@ -62,7 +62,7 @@ const Main = () => {
             <div className="relative">
               <div className="w-40 h-36 overflow-hidden rounded-3xl">
                 <img
-                  src={meal.image}
+                  src={`${address}\\${meal[0].calImgStored}`}
                   alt="description"
                   className="w-full h-full object-cover"
                 />
@@ -73,23 +73,26 @@ const Main = () => {
                 className="absolute bottom-0 bg-opacity-70 flex items-center justify-center rounded-b-3xl opacity-80"
               />
               <span className="absolute bottom-3 w-7/12 text-white font-[Pretendard-Bold]">
-                {meal.title}
+                {/* {meal[0].title} */}
+                임시이름
               </span>
             </div>
 
             {/* 두 번째 칸: 칼로리와 태그 */}
             <div className="ml-5 font-[Pretendard-Medium] text-my-text-deepblack h-36 w-full">
               <div className="text-end top-0 text-my-text-ligthgreen mb-4">
-                {meal.time}
+                {formatDate(new Date(meal[0].calDate))}
               </div>
-              <div className="text-start text-sm">칼로리: {meal.cal}kcal</div>
+              <div className="text-start text-sm">
+                칼로리: {meal[0].calCal}kcal
+              </div>
               <div className="flex flex-wrap gap-2 mt-2">
-                {meal.tag.map((tag) => (
+                {meal.map((food) => (
                   <div
-                    key={tag}
+                    key={food.calFoodName}
                     className="bg-my-text-background text-xs rounded-lg w-fit px-2"
                   >
-                    # {tag}
+                    # {food.calFoodName}
                   </div>
                 ))}
               </div>

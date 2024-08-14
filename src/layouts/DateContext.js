@@ -5,7 +5,7 @@ const DateContext = createContext();
 export const useDate = () => useContext(DateContext);
 
 export const DateProvider = ({ children }) => {
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
 
   const dateChange = (date) => {
     const formatDate = (date) => {
