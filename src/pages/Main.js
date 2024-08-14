@@ -9,7 +9,6 @@ const Main = () => {
   const { moveToDetail, moveToAdd } = useCustomMove();
   const { date } = useDate();
   const loginInfo = useSelector((state) => state.loginSlice);
-  const address = `C:\aaa_yonsei\Projects\calorifyData\saved`;
 
   const [mealList, setMealList] = useState([]);
 
@@ -62,7 +61,10 @@ const Main = () => {
             <div className="relative">
               <div className="w-40 h-36 overflow-hidden rounded-3xl">
                 <img
-                  src={`${address}\\${meal[0].calImgStored}`}
+                  src={
+                    process.env.PUBLIC_URL +
+                    `/assets/saved/${meal[0].calImgStored}`
+                  }
                   alt="description"
                   className="w-full h-full object-cover"
                 />
@@ -74,7 +76,7 @@ const Main = () => {
               />
               <span className="absolute bottom-3 w-7/12 text-white font-[Pretendard-Bold]">
                 {/* {meal[0].title} */}
-                임시이름
+                식사 {index + 1}
               </span>
             </div>
 
