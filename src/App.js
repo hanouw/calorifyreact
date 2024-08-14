@@ -1,4 +1,5 @@
 import "./App.css";
+import { DateProvider } from "./layouts/DateContext";
 import ErrorPage from "./pages/ErrorPage";
 import Router from "./routes/indexRouter";
 import { ErrorBoundary } from "react-error-boundary";
@@ -6,9 +7,11 @@ import { ErrorBoundary } from "react-error-boundary";
 function App() {
   return (
     <div className="App">
-      <ErrorBoundary FallbackComponent={ErrorPage}>
-        <Router />
-      </ErrorBoundary>
+      <DateProvider>
+        <ErrorBoundary FallbackComponent={ErrorPage}>
+          <Router />
+        </ErrorBoundary>
+      </DateProvider>
     </div>
   );
 }

@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BasicLayout from "../layouts/BasicLayout";
 import useCustomMove from "../hooks/useCustomMove";
+import { getMeal } from "../api/mealApi";
+import { useDate } from "../layouts/DateContext";
+import { useSelector } from "react-redux";
 
 const Main = () => {
   const { moveToDetail, moveToAdd } = useCustomMove();
+  const { date } = useDate();
+  const loginInfo = useSelector((state) => state.loginSlice);
 
   const [mealList, setMealList] = useState([
     {
@@ -14,31 +19,15 @@ const Main = () => {
       cal: 400,
       tag: ["시리얼", "우유"],
     },
-    {
-      mealId: 2,
-      image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_02.jpg",
-      title: "점심",
-      time: "01:15",
-      cal: 1013,
-      tag: ["피자", "파스타", "콜라", "피클", "핫소스"],
-    },
-    {
-      mealId: 3,
-      image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_03.jpg",
-      title: "저녁",
-      time: "06:25",
-      cal: 1013,
-      tag: ["설렁탕"],
-    },
-    {
-      mealId: 4,
-      image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_04.jpg",
-      title: "야식",
-      time: "12:15",
-      cal: 1013,
-      tag: ["솥밥, 김치"],
-    },
   ]);
+
+  useEffect(() => {
+    console.log(date);
+    getMeal(loginInfo.memId, date).then((data) => {
+      console.log(data);
+      setMealList(data);
+    });
+  }, [date]);
   return (
     <BasicLayout>
       <div className="fixed flex w-14 h-14 bottom-5 right-5 rounded-full justify-center items-center bg-my-basic-green">

@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import NoCalBasicLayout from "../layouts/NoCalBasicLayout";
 import { getFoodData, getYolo } from "../api/foodApi";
+import { useSelector } from "react-redux";
+import { saveMeal } from "../api/mealApi";
+import useCustomMove from "../hooks/useCustomMove";
 
 const AddMeal = () => {
+  const { moveToMain } = useCustomMove();
   const [image, setImage] = useState();
   const [imageFile, setImageFile] = useState();
   const [data, setData] = useState([]);
+  const loginInfo = useSelector((state) => state.loginSlice);
 
   const handleFileChange = (e) => {
     // 파일 저장
     const file = e.target.files[0];
     setImageFile(file);
+
+    // getName();
+    getCalClicked();
 
     // 미리보기 이미지
     const reader = new FileReader();
@@ -38,7 +46,20 @@ const AddMeal = () => {
     setImage(result.image);
   };
 
-  console.log(data);
+  const handleSaveClicked = async () => {
+    if (imageFile == null) {
+      alert("이미지 넣으세요");
+    } else {
+      await saveMeal({
+        imageFile: imageFile,
+        mealData: data,
+        loginInfo: loginInfo.memId,
+      }).then((result) => {
+        console.log(result);
+        moveToMain();
+      });
+    }
+  };
   return (
     <NoCalBasicLayout>
       <div className="my-5">
@@ -55,13 +76,10 @@ const AddMeal = () => {
             />
           </div>
         </div>
-        <div className="bg-my-graph-orange h-10 w-20" onClick={() => getName()}>
-          제출하기
-        </div>
         <div className="flex justify-between items-center text-my-text-ligthgreen font-[Pretendard-Regular] text-sm pb-5 px-10">
           <div
             className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"
-            onClick={() => getCalClicked()}
+            onClick={() => alert("카메라 열기")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -112,8 +130,11 @@ const AddMeal = () => {
       <div className="border-gray-200 border w-full"></div>
 
       {/* 칼로리바 */}
-      {data.map((info) => (
-        <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
+      {data.map((info, index) => (
+        <div
+          className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start"
+          key={index}
+        >
           <div className="flex justify-between mb-2 text-xs font-[Pretendard-Medium] border-b-2 border-gray-300 w-full p-3 px-4 items-center">
             <div className="font-[Pretendard-Bold] text-xl">
               {info.DESC_KOR}
@@ -157,7 +178,10 @@ const AddMeal = () => {
       ))}
 
       <div className="mb-20"></div>
-      <div className="fixed flex bg-my-basic-green h-16 w-full bottom-0 text-white justify-center items-center font-[Pretendard-Regular] text-xl rounded-t-lg">
+      <div
+        className="fixed flex bg-my-basic-green h-16 w-full bottom-0 text-white justify-center items-center font-[Pretendard-Regular] text-xl rounded-t-lg"
+        onClick={() => handleSaveClicked()}
+      >
         확인 및 등록
       </div>
     </NoCalBasicLayout>

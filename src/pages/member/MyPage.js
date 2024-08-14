@@ -1,10 +1,12 @@
 import React from "react";
 import useCustomMove from "../../hooks/useCustomMove";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import { useSelector } from "react-redux";
 
 const MyPage = () => {
-  const { moveToMain, moveToLogin } = useCustomMove();
+  const { moveToMain } = useCustomMove();
   const { execLogout } = useCustomLogin();
+  const loginInfo = useSelector((state) => state.loginSlice);
   const handleLogout = () => {
     const isConfirmed = window.confirm("로그아웃 하시겠습니까?");
     if (isConfirmed) {
@@ -43,7 +45,7 @@ const MyPage = () => {
               className="w-14 rounded-full bg-white border-2"
             />
             <div className="font-[Pretendard-Regular] text-base text-white">
-              밥먹는 무지
+              {loginInfo.nickName}
               <span className="text-xs"> 님</span>
             </div>
           </div>
@@ -57,12 +59,6 @@ const MyPage = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="flex w-full bg-red-50 cursor-pointer"
-        onClick={() => moveToLogin()}
-      >
-        로그인페이지로이동
       </div>
     </>
   );

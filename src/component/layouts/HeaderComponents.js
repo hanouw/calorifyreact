@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useCustomMove from "../../hooks/useCustomMove";
 import { useSelector } from "react-redux";
+import { useDate } from "../../layouts/DateContext";
 
 const HeaderComponents = ({ layout }) => {
   const loginInfo = useSelector((state) => state.loginSlice);
@@ -10,6 +11,7 @@ const HeaderComponents = ({ layout }) => {
   const [isCalendar, setIsCalendar] = useState(false);
   const [days, setDays] = useState([]);
   const dow = ["일", "월", "화", "수", "목", "금", "토"];
+  const { dateChange } = useDate();
 
   useEffect(() => {
     console.log(loginInfo);
@@ -29,6 +31,7 @@ const HeaderComponents = ({ layout }) => {
     }
 
     setDays(newArr);
+    dateChange(currentDate);
   }, [currentDate]);
 
   // 그 달이 몇일인지
@@ -85,12 +88,11 @@ const HeaderComponents = ({ layout }) => {
     >
       <div
         className={`bg-my-basic-green rounded-bl-[48px] p-7 transition-all duration-400 ease-in-out ${
-          isCalendar ? "h-5/6" : "h-[164px]"
-        } ${
           layout === "basic"
             ? "shadow-lg shadow-gray-400"
             : "shadow-md h-[109px]"
-        }`}
+        } ${isCalendar && layout === "basic" && "h-5/6"}  
+        ${!isCalendar && layout === "basic" && "h-[164px]"}`}
       >
         {isCalendar ? (
           <div>
