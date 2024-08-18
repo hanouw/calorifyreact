@@ -62,14 +62,9 @@ const MyPage = () => {
             >
               로그아웃
             </div>
+
           </div>
         </div>
-      </div>
-      <div
-        className="flex w-full bg-red-50 cursor-pointer"
-        onClick={() => moveToMemInfo()}
-      >
-        로그인페이지로이동
       </div>
     </>
   );
