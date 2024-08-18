@@ -7,11 +7,11 @@ const HeaderComponents = ({ layout }) => {
   const loginInfo = useSelector((state) => state.loginSlice);
   const { moveToMyPage, moveToMain, moveToLogin } = useCustomMove();
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [todayCalory, setTodayCalory] = useState(30);
+  const { dateChange, cal } = useDate();
+  const [todayCalory, setTodayCalory] = useState(cal);
   const [isCalendar, setIsCalendar] = useState(false);
   const [days, setDays] = useState([]);
   const dow = ["일", "월", "화", "수", "목", "금", "토"];
-  const { dateChange } = useDate();
 
   useEffect(() => {
     console.log(loginInfo);
@@ -244,12 +244,12 @@ const HeaderComponents = ({ layout }) => {
             <div className="relative rounded-xl border border-my-text-deepblack w-4/5 h-3 bg-gray-200">
               <div
                 className="absolute top-0 left-0 h-full bg-my-graph-orange rounded-l-xl"
-                style={{ width: `${todayCalory}%` }}
+                style={{ width: `${(cal / 2890) * 100}%` }}
               />
             </div>
           </div>
           <div className="flex pr-10 justify-end font-[Pretendard-Light] text-sm text-my-text-lightblack">
-            2890 kcal
+            {cal} / {2890} kcal
           </div>
         </div>
       )}

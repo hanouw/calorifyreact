@@ -6,9 +6,7 @@ const MEAL_API_SERVER_HOST = CALORIFY_API_SERVER_HOST + "/meal";
 export const saveMeal = async ({ imageFile, mealData, loginInfo }) => {
   const formData = new FormData();
   // 이미지 파일 리스트를 반복하여 FormData에 추가
-  imageFile.forEach((file) => {
-    formData.append("image", file);
-  });
+  formData.append("image", imageFile);
   formData.append("nutrients", JSON.stringify(mealData));
   formData.append("memId", loginInfo);
 
