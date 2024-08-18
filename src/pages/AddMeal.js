@@ -7,51 +7,47 @@ import useCustomMove from "../hooks/useCustomMove";
 
 const AddMeal = () => {
   const { moveToMain } = useCustomMove();
-  const [image, setImage] = useState();
-  const [imageFile, setImageFile] = useState();
+  const [images, setImages] = useState([]);
+  const [imageFiles, setImageFiles] = useState([]);
   const [data, setData] = useState([]);
   const loginInfo = useSelector((state) => state.loginSlice);
 
   const handleFileChange = (e) => {
     // 파일 저장
     const file = e.target.files[0];
-    setImageFile(file);
+    setImageFiles((prevFiles) => [...prevFiles, file]);
 
     // getName();
     getCalClicked();
 
     // 미리보기 이미지
     const reader = new FileReader();
-    const fileBlob = e.target.files[0];
-    reader.readAsDataURL(fileBlob);
+    reader.readAsDataURL(file);
 
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setImage(reader.result);
-
-        resolve();
-      };
-    });
+    reader.onload = () => {
+      const temp = reader.result;
+      setImages((prevImages) => [...prevImages, temp]);
+    };
   };
 
   const getCalClicked = async () => {
-    const result = await getFoodData("피자");
+    const result = await getFoodData("김치");
     setData((prevData) => [...prevData, ...result.body.items]);
   };
 
   const getName = async () => {
-    const result = await getYolo(imageFile).then(() => {
+    const result = await getYolo(imageFiles).then(() => {
       getCalClicked();
     });
-    setImage(result.image);
+    setImages(result.image);
   };
 
   const handleSaveClicked = async () => {
-    if (imageFile == null) {
+    if (imageFiles == null) {
       alert("이미지 넣으세요");
     } else {
       await saveMeal({
-        imageFile: imageFile,
+        imageFile: imageFiles,
         mealData: data,
         loginInfo: loginInfo.memId,
       }).then((result) => {
@@ -67,15 +63,33 @@ const AddMeal = () => {
           사진등록
         </div>
 
-        <div className="relative flex justify-center py-10">
-          <div className="w-52 h-52 overflow-hidden rounded-3xl border p-1">
-            <img
-              src={image ? image : `/assets/imgs/diet.png`}
-              alt="description"
-              className="w-full h-full object-cover"
-            />
+        <div className="relative py-10 overflow-x-scroll">
+          <div className="flex justify-center space-x-4">
+            {images.length > 0 ? (
+              images.map((image, index) => (
+                <div
+                  key={index}
+                  className="w-52 h-52 overflow-hidden rounded-3xl border p-1 inline-block"
+                >
+                  <img
+                    src={image ? image : `/assets/imgs/diet.png`}
+                    alt={`Uploaded ${index}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="w-52 h-52 overflow-hidden rounded-3xl border p-1 inline-block">
+                <img
+                  src={`/assets/imgs/diet.png`}
+                  alt={`Not Uploaded`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
           </div>
         </div>
+
         <div className="flex justify-between items-center text-my-text-ligthgreen font-[Pretendard-Regular] text-sm pb-5 px-10">
           <div
             className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"

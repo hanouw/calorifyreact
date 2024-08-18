@@ -89,9 +89,9 @@ const Main = () => {
                 칼로리: {meal[0].calCal}kcal
               </div>
               <div className="flex flex-wrap gap-2 mt-2">
-                {meal.map((food) => (
+                {meal.map((food, index) => (
                   <div
-                    key={food.calFoodName}
+                    key={index + "번째 음식"}
                     className="bg-my-text-background text-xs rounded-lg w-fit px-2"
                   >
                     # {food.calFoodName}
