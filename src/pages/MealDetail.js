@@ -68,7 +68,6 @@ const MealDetail = () => {
               </div>
             </div>
             <div className="flex pr-10 justify-end font-[Pretendard-Light] text-sm text-my-text-lightblack pb-5">
-              {/* 2890 kcal */}
               {meal.calCal} kcal
             </div>
             <div className="border border-gray-200 bg-my-text-background rounded-lg m-4 text-start">
@@ -98,6 +97,12 @@ const MealDetail = () => {
                 </div>
               </div>
             </div>
+
+            {/* 스와이프 핸들러 */}
+            <div
+              onClick={() => handleSwipe(index)}
+              className="w-full h-10 bg-transparent cursor-pointer"
+            ></div>
           </div>
         ))
       ) : (
