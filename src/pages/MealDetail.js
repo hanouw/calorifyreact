@@ -12,15 +12,6 @@ const MealDetail = () => {
   console.log('Meal list:', mealList);
   console.log('Type of mealList:', typeof mealList);
 
-  // const meal = {
-  //   mealId: 1,
-  //   image: process.env.PUBLIC_URL + "/assets/imgs/exdata/meal_01.jpg",
-  //   title: "아침",
-  //   time: "09:18",
-  //   cal: 400,
-  //   tag: ["시리얼", "우유"],
-  // };
-
   return (
     <NoCalBasicLayout>
       {Array.isArray(mealList) && mealList.length > 0 ? (

@@ -55,10 +55,7 @@ const Main = () => {
         >
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => {
-              console.log("Passing Meal data:", meal)
-              moveToDetail({meal});
-            }}
+            onClick={() => moveToDetail({meal})}
           >
             {/* 첫 번째 칸: image와 title */}
             <div className="relative">
