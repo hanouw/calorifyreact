@@ -99,10 +99,10 @@ const MealDetail = () => {
             </div>
 
             {/* 스와이프 핸들러 */}
-            <div
+            {/* <div
               onClick={() => handleSwipe(index)}
               className="w-full h-10 bg-transparent cursor-pointer"
-            ></div>
+            ></div> */}
           </div>
         ))
       ) : (

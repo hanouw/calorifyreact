@@ -45,9 +45,9 @@ export const deleteMember = async (mid) => {
   return response.data;
 };
 
-export const nameIsduplicate = async (name) => {
+export const idIsduplicate = async (name) => {
   const response = await axios.get(
-    `${CALORIFY_API_SERVER_HOST}/members/name?name=${name}`
+    `${CALORIFY_API_SERVER_HOST}/members/${name}`
   );
   return response.data;
 };
