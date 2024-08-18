@@ -7,7 +7,7 @@ import useCustomMove from "../hooks/useCustomMove";
 
 const AddMeal = () => {
   const { moveToMain } = useCustomMove();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState();
   const [imageFiles, setImageFiles] = useState([]);
   const [data, setData] = useState([]);
   const loginInfo = useSelector((state) => state.loginSlice);
@@ -15,7 +15,7 @@ const AddMeal = () => {
   const handleFileChange = (e) => {
     // 파일 저장
     const file = e.target.files[0];
-    setImageFiles((prevFiles) => [...prevFiles, file]);
+    setImageFiles(file);
 
     // getName();
     getCalClicked();
@@ -26,13 +26,17 @@ const AddMeal = () => {
 
     reader.onload = () => {
       const temp = reader.result;
-      setImages((prevImages) => [...prevImages, temp]);
+      setImages(temp);
     };
   };
 
   const getCalClicked = async () => {
-    const result = await getFoodData("김치");
-    setData((prevData) => [...prevData, ...result.body.items]);
+    const foods = ["김치", "볶음밥", "피자"];
+    setData([]);
+    for (let i = 0; i < 3; i++) {
+      const result = await getFoodData(foods[i]);
+      setData((prevData) => [...prevData, ...result.body.items]);
+    }
   };
 
   const getName = async () => {
@@ -65,28 +69,17 @@ const AddMeal = () => {
 
         <div className="relative py-10 overflow-x-scroll">
           <div className="flex justify-center space-x-4">
-            {images.length > 0 ? (
-              images.map((image, index) => (
-                <div
-                  key={index}
-                  className="w-52 h-52 overflow-hidden rounded-3xl border p-1 inline-block"
-                >
-                  <img
-                    src={image ? image : `/assets/imgs/diet.png`}
-                    alt={`Uploaded ${index}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))
-            ) : (
-              <div className="w-52 h-52 overflow-hidden rounded-3xl border p-1 inline-block">
-                <img
-                  src={`/assets/imgs/diet.png`}
-                  alt={`Not Uploaded`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+            <div className="w-52 h-52 overflow-hidden rounded-3xl border p-1 inline-block">
+              <img
+                src={
+                  images
+                    ? images
+                    : process.env.PUBLIC_URL + "/assets/imgs/diet.png"
+                }
+                alt={`Uploaded image`}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
         </div>
 

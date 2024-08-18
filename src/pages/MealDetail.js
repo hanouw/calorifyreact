@@ -1,44 +1,52 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import NoCalBasicLayout from "../layouts/NoCalBasicLayout";
 import { useLocation } from "react-router-dom";
 
 const MealDetail = () => {
-  
   const location = useLocation();
   const mealList = location.state?.mealList?.meal || [];
 
-  console.log('Full location object:', location);
-  console.log('Location state:', location.state);
-  console.log('Meal list:', mealList);
-  console.log('Type of mealList:', typeof mealList);
+  console.log("Full location object:", location);
+  console.log("Location state:", location.state);
+  console.log("Meal list:", mealList);
+  console.log("Type of mealList:", typeof mealList);
 
   return (
     <NoCalBasicLayout>
+      <div className="relative flex justify-center">
+        <div className="w-52 h-52 overflow-hidden rounded-3xl">
+          <img
+            // src={meal.image}
+            // alt="description"
+            src={
+              process.env.PUBLIC_URL +
+              "/assets/saved/" +
+              mealList[0].calImgStored
+            }
+            alt={mealList[0].calFoodName}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
       {Array.isArray(mealList) && mealList.length > 0 ? (
-
-      
         mealList.map((meal, index) => (
           <div key={index}>
             <div className="my-5">
-              <div className="flex text-my-basic-green text-start pl-10 font-[Pretendard-Medium] text-xl">
-                식사 {index+1}
-              </div>
+              {/* <div className="flex text-my-basic-green text-start pl-10 font-[Pretendard-Medium] text-xl">
+                식사 {index + 1}
+              </div> */}
               <div className="flex justify-between px-10 text-my-text-ligthgreen font-[Pretendard-Medium] text-sm pb-5">
-                <span>{new Date(meal.calDate).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                <span>
+                  {new Date(meal.calDate).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
                 <span>{meal.calCal} kcal</span>
               </div>
-              <div className="relative flex justify-center">
-                <div className="w-52 h-52 overflow-hidden rounded-3xl">
-                  <img
-                    // src={meal.image}
-                    // alt="description"
-                    src={process.env.PUBLIC_URL + "/assets/imgs/" + meal.calImg}
-                    alt={meal.calFoodName}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-              <span className="font-[Pretendard-Medium] text-sm">{meal.calFoodName}</span>
+              <span className="font-[Pretendard-Medium] text-sm">
+                {meal.calFoodName}
+              </span>
             </div>
 
             {/* 구분선 */}
@@ -53,7 +61,9 @@ const MealDetail = () => {
                 <div
                   className="absolute top-0 left-0 h-full bg-my-graph-orange rounded-l-xl"
                   // style={{ width: `30%` }}
-                  style={{ width: `${(parseFloat(meal.calCal) / 2890) * 100}%` }}
+                  style={{
+                    width: `${(parseFloat(meal.calCal) / 2890) * 100}%`,
+                  }}
                 />
               </div>
             </div>
@@ -84,7 +94,7 @@ const MealDetail = () => {
                 <div className="flex justify-between py-1">
                   <span>식이섬유</span>
                   {/* <span>48.8 g</span> */}
-                  <span>{meal.calFib || 'NA'} g</span>
+                  <span>{meal.calFib || "NA"} g</span>
                 </div>
               </div>
             </div>
@@ -97,8 +107,4 @@ const MealDetail = () => {
   );
 };
 
-
-
-
 export default MealDetail;
-

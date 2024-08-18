@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Main = () => {
   const { moveToDetail, moveToAdd } = useCustomMove();
-  const { date } = useDate();
+  const { date, calChange, cal, calClean } = useDate();
   const loginInfo = useSelector((state) => state.loginSlice);
 
   const [mealList, setMealList] = useState([]);
@@ -20,11 +20,24 @@ const Main = () => {
     });
   };
 
+  const getSumCal = (meal) => {
+    return meal.reduce((sum, data) => sum + parseFloat(data.calCal), 0);
+  };
+
   useEffect(() => {
     console.log(date);
+    // calClean();
     getMeal({ memId: loginInfo.memId, date: date }).then((data) => {
       console.log(data);
       setMealList(data.RESULT);
+
+      let totalCal = 0;
+      for (let i = 0; i < data.RESULT.length; i++) {
+        for (let j = 0; j < data.RESULT[i].length; j++) {
+          totalCal += parseFloat(data.RESULT[i][j].calCal);
+        }
+      }
+      calChange(totalCal);
     });
   }, [date]);
   return (
@@ -55,7 +68,7 @@ const Main = () => {
         >
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => moveToDetail({meal})}
+            onClick={() => moveToDetail({ meal })}
           >
             {/* 첫 번째 칸: image와 title */}
             <div className="relative">
@@ -86,7 +99,7 @@ const Main = () => {
                 {formatDate(new Date(meal[0].calDate))}
               </div>
               <div className="text-start text-sm">
-                칼로리: {meal[0].calCal}kcal
+                칼로리: {getSumCal(meal)}kcal
               </div>
               <div className="flex flex-wrap gap-2 mt-2">
                 {meal.map((food, index) => (
