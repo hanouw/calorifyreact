@@ -1,14 +1,19 @@
 import React from "react";
+
+import Navigation from "../layouts/navigation/Navbar"
+import Footer from "../layouts/Footer";
 import useCustomMove from "../hooks/useCustomMove";
+import LandingPageMain from "../component/landingpage/LandingPageMain";
+import SlideShowCase from "../component/landingpage/SlideShowCase";
 
 const LandingPage = () => {
   const { moveToMain } = useCustomMove();
   return (
     <div>
-      LandingPage
-      <div className="w-full bg-red-50" onClick={() => moveToMain()}>
-        Main 으로 이동
-      </div>
+      <Navigation />
+      <LandingPageMain />
+      <SlideShowCase />
+      <Footer />
     </div>
   );
 };

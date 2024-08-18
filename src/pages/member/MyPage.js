@@ -1,18 +1,17 @@
 import React from "react";
 import useCustomMove from "../../hooks/useCustomMove";
 import useCustomLogin from "../../hooks/useCustomLogin";
-import { useSelector } from "react-redux";
 
 const MyPage = () => {
-  const { moveToMain } = useCustomMove();
+  const { moveToMain, moveToLogin, moveToMemInfo } = useCustomMove();
   const { execLogout } = useCustomLogin();
-  const loginInfo = useSelector((state) => state.loginSlice);
   const handleLogout = () => {
     const isConfirmed = window.confirm("로그아웃 하시겠습니까?");
     if (isConfirmed) {
       execLogout();
     }
   };
+
   return (
     <>
       <div className="flex items-center justify-between m-7">
@@ -45,12 +44,18 @@ const MyPage = () => {
               className="w-14 rounded-full bg-white border-2"
             />
             <div className="font-[Pretendard-Regular] text-base text-white">
-              {loginInfo.nickName}
+              밥먹는 무지
               <span className="text-xs"> 님</span>
             </div>
           </div>
           <div className="flex justify-between font-[Pretendard-Medium] text-base text-my-text-deepblack px-5">
-            <div className="bg-white rounded-2xl px-7 py-1">정보수정</div>
+            <div 
+              className="bg-white rounded-2xl px-7 py-1 cursor-pointer"
+              onClick={() => moveToMemInfo()}
+            >
+              정보수정
+              
+            </div>
             <div
               className="bg-white rounded-2xl px-7 py-1 cursor-pointer"
               onClick={handleLogout}
@@ -59,6 +64,12 @@ const MyPage = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div
+        className="flex w-full bg-red-50 cursor-pointer"
+        onClick={() => moveToMemInfo()}
+      >
+        로그인페이지로이동
       </div>
     </>
   );

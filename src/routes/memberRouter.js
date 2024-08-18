@@ -4,6 +4,7 @@ import LoadingPage from "../component/common/LoadingPage";
 const Login = lazy(() => import("../pages/member/Login"));
 const Signup = lazy(() => import("../pages/member/Signup"));
 const MyPage = lazy(() => import("../pages/member/MyPage"));
+const MemberInfo = lazy(() => import("../pages/member/MemberInfo"));
 
 const memberRouter = () => {
   return [
@@ -28,6 +29,14 @@ const memberRouter = () => {
       element: (
         <Suspense fallback={<LoadingPage />}>
           <Signup />
+        </Suspense>
+      ),
+    },
+    {
+      path: "meminfo",
+      element: (
+        <Suspense fallback={<LoadingPage />}>
+          <MemberInfo />
         </Suspense>
       ),
     },
