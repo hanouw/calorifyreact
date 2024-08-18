@@ -4,13 +4,28 @@ import { getFoodData, getYolo } from "../api/foodApi";
 import { useSelector } from "react-redux";
 import { saveMeal } from "../api/mealApi";
 import useCustomMove from "../hooks/useCustomMove";
+import { useDate } from "../layouts/DateContext";
 
 const AddMeal = () => {
+  // 페이지 이동
   const { moveToMain } = useCustomMove();
+  // 이미지 미리보기 파일
   const [images, setImages] = useState();
+  // 이미지 실제 파일
   const [imageFiles, setImageFiles] = useState([]);
+  // 음식 정보
   const [data, setData] = useState([]);
+  // 로그인 정보
   const loginInfo = useSelector((state) => state.loginSlice);
+
+  // Main.js 헤더에서 가져온 날짜
+  const { date } = useDate();
+  const [saveDate, setSaveDate] = useState(date);
+
+  // 시간 계산
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
 
   const handleFileChange = (e) => {
     // 파일 저장
@@ -54,11 +69,16 @@ const AddMeal = () => {
         imageFile: imageFiles,
         mealData: data,
         loginInfo: loginInfo.memId,
+        date: saveDate,
       }).then((result) => {
         console.log(result);
         moveToMain();
       });
     }
+  };
+
+  const handleDateChange = (e) => {
+    setSaveDate(e.target.value);
   };
   return (
     <NoCalBasicLayout>
@@ -67,7 +87,16 @@ const AddMeal = () => {
           사진등록
         </div>
 
-        <div className="relative py-10 overflow-x-scroll">
+        <div>
+          <input
+            className="font-[Pretendard-Light] border-2 rounded-lg p-1 my-5"
+            type="datetime-local"
+            defaultValue={`${date}T${hours}:${minutes}`}
+            onChange={handleDateChange}
+          />
+        </div>
+
+        <div className="relative pb-10 overflow-x-scroll">
           <div className="flex justify-center space-x-4">
             <div className="w-52 h-52 overflow-hidden rounded-3xl border p-1 inline-block">
               <img

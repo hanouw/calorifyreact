@@ -20,14 +20,8 @@ export const DateProvider = ({ children }) => {
     setCal(calory);
   };
 
-  const calClean = () => {
-    setCal(0);
-  };
-
   return (
-    <DateContext.Provider
-      value={{ date, dateChange, cal, calChange, calClean }}
-    >
+    <DateContext.Provider value={{ date, dateChange, cal, calChange }}>
       {children}
     </DateContext.Provider>
   );

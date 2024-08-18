@@ -3,12 +3,13 @@ import { CALORIFY_API_SERVER_HOST } from "./memberApi";
 
 const MEAL_API_SERVER_HOST = CALORIFY_API_SERVER_HOST + "/meal";
 
-export const saveMeal = async ({ imageFile, mealData, loginInfo }) => {
+export const saveMeal = async ({ imageFile, mealData, loginInfo, date }) => {
   const formData = new FormData();
   // 이미지 파일 리스트를 반복하여 FormData에 추가
   formData.append("image", imageFile);
   formData.append("nutrients", JSON.stringify(mealData));
   formData.append("memId", loginInfo);
+  formData.append("date", date);
 
   const response = await axios.post(`${MEAL_API_SERVER_HOST}/save`, formData, {
     headers: {

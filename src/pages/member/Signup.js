@@ -2,7 +2,7 @@ import useCustomLogin from "../../hooks/useCustomLogin";
 import { useEffect, useState } from "react";
 import useCustomMove from "../../hooks/useCustomMove";
 import { useSelector } from "react-redux";
-import { register } from "../../api/memberApi";
+import { loginPost, register } from "../../api/memberApi";
 
 const initState = {
   memId: "",
@@ -17,6 +17,7 @@ const initState = {
 };
 
 const Signup = () => {
+  const { execLogin } = useCustomLogin();
   const { moveToMain, moveToLogin } = useCustomMove();
   const loginInfo = useSelector((state) => state.loginSlice);
 
@@ -34,13 +35,13 @@ const Signup = () => {
   };
 
   const handleClickSignup = () => {
-    console.log(loginParam);
     register(loginParam).then((data) => {
-      console.log(data);
-      if (data.error == "ERROR_LOGIN") {
+      if (data.error === "ERROR_LOGIN") {
         alert("뭔가 틀림 잘못됐을수도");
       } else {
-        moveToMain();
+        execLogin(data).then((data) => {
+          moveToMain();
+        });
       }
     });
   };
