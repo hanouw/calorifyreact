@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const MealDetail = () => {
   const [totalCal, setTotalCal] = useState();
   const [modifyClick, setModifyClick] = useState([]);
-  const loginInfo = useSelector();
+  const loginInfo = useSelector((state) => state.loginSlice);
   const location = useLocation();
   const mealList = location.state?.mealList?.meal || [];
 
@@ -22,9 +22,10 @@ const MealDetail = () => {
   };
 
   const handleDelete = (meal) => {
+    console.log(meal.calDate, meal.calMealNum, loginInfo.memId);
     deleteMeal({
       calDateData: meal.calDate,
-      calMealNumData: meal.cal_meal_num,
+      calMealNumData: meal.calMealNum,
       memIdData: loginInfo.memId,
     });
   };
@@ -132,7 +133,7 @@ const MealDetail = () => {
               {/* 삭제 버튼 */}
               <div
                 className="flex bg-gray-500 text-white w-36 rounded-lg items-center justify-center pl-[24px]"
-                onClick={() => handleDelete({meal})}
+                onClick={() => handleDelete(meal)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
