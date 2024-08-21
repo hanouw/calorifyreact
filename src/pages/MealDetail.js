@@ -7,9 +7,13 @@ import { useSelector } from "react-redux";
 const MealDetail = () => {
   const [totalCal, setTotalCal] = useState();
   const [modifyClick, setModifyClick] = useState([]);
+  const [refresh, setRefresh] = useState(true);
   const loginInfo = useSelector((state) => state.loginSlice);
   const location = useLocation();
-  const mealList = location.state?.mealList?.meal || [];
+  const [mealList, setMealList] = useState(
+    location.state?.mealList?.meal || []
+    // []
+  );
 
   console.log(mealList);
 
@@ -21,12 +25,15 @@ const MealDetail = () => {
     });
   };
 
-  const handleDelete = (meal) => {
-    console.log(meal.calDate, meal.calMealNum, loginInfo.memId);
+  const handleDelete = (meal, index) => {
+    console.log(typeof meal.mealId, loginInfo.memId);
     deleteMeal({
-      calDateData: meal.calDate,
-      calMealNumData: meal.calMealNum,
+      mealIdData: meal.mealId,
       memIdData: loginInfo.memId,
+    }).then(() => {
+      mealList.splice(index, 1);
+      modifyClick[index] = false;
+      setRefresh({ ...!refresh });
     });
   };
 
@@ -42,39 +49,42 @@ const MealDetail = () => {
       temp += parseFloat(mealList[i].calCal);
     }
     setTotalCal(temp);
-  }, []);
+  }, [mealList]);
 
   return (
     <NoCalBasicLayout>
-      <div className="my-5">
-        <div className="flex justify-between px-5 text-my-basic-green font-[Pretendard-Medium] text-sm">
-          <span className="text-xl">식사</span>
-        </div>
-        <div className="flex justify-between px-5 text-my-basic-green font-[Pretendard-Medium] text-sm">
-          <span className="text-sm text-my-text-ligthgreen">
-            {new Date(mealList[0].calDate).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </span>
-          <div className="text-my-text-lightblack">총 {totalCal}kcal</div>
-        </div>
-      </div>
+      {mealList.length > 0 && (
+        <div>
+          <div className="my-5">
+            <div className="flex justify-between px-5 text-my-basic-green font-[Pretendard-Medium] text-sm">
+              <span className="text-xl">식사</span>
+            </div>
+            <div className="flex justify-between px-5 text-my-basic-green font-[Pretendard-Medium] text-sm">
+              <span className="text-sm text-my-text-ligthgreen">
+                {new Date(mealList[0].calDate).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+              <div className="text-my-text-lightblack">총 {totalCal}kcal</div>
+            </div>
+          </div>
 
-      <div className="relative flex justify-center pb-5">
-        <div className="w-52 h-52 overflow-hidden rounded-3xl">
-          <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/saved/" +
-              mealList[0].calImgStored
-            }
-            alt={mealList[0].calFoodName}
-            className="w-full h-full object-cover"
-          />
+          <div className="relative flex justify-center pb-5">
+            <div className="w-52 h-52 overflow-hidden rounded-3xl">
+              <img
+                src={
+                  process.env.PUBLIC_URL +
+                  "/assets/saved/" +
+                  mealList[0].calImgStored
+                }
+                alt={mealList[0].calFoodName}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-
+      )}
       {/* 구분선 */}
       <div className="border-gray-200 border w-full bg-black"></div>
 
@@ -133,7 +143,7 @@ const MealDetail = () => {
               {/* 삭제 버튼 */}
               <div
                 className="flex bg-gray-500 text-white w-36 rounded-lg items-center justify-center pl-[24px]"
-                onClick={() => handleDelete(meal)}
+                onClick={() => handleDelete(meal, index)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
