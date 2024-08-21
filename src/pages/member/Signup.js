@@ -67,7 +67,7 @@ const Signup = () => {
 
   const handleClickSignup = () => {
     const isId = handleIdDupl({ target: { value: loginParam.memId } });
-    if (isId) {
+    if (idDupl) {
       alert("이미 사용중인 아이디입니다.");
       return;
     }

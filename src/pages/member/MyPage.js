@@ -64,7 +64,7 @@ const MyPage = () => {
 
       {/* Profile Card Area */}
       <div className="flex justify-center">
-        <div className="bg-my-basic-green rounded-lg w-full mx-7 my-3 shadow-lg shadow-gray-400 py-5">
+        <div className=" bg-my-basic-green rounded-lg w-full h-56 mx-7 my-3 shadow-lg shadow-gray-400 py-5">
           <div className="grid grid-cols-3">
             <div className="col-start-2 justify-self-center">
               <img
@@ -89,7 +89,9 @@ const MyPage = () => {
 
           <div className="flex justify-between items-baseline mx-6 my-5">
             <span className="text-white">{loginInfo.nickName}</span>
-            <span className="text-white text-xs">173cm 62kg</span>
+            <span className="text-white text-xs">
+              {memInfo.memHeight}cm {memInfo.memWeight}kg
+            </span>
           </div>
 
           <div className="flex justify-center font-[Pretendard-Medium] text-base text-my-text-deepblack px-5">
@@ -100,7 +102,9 @@ const MyPage = () => {
               Log Out
             </div>
           </div>
-          <div className="text-white text-8xl text-opacity-10">Calorify</div>
+          <div className="text-white text-8xl text-opacity-10 -translate-y-3">
+            Calorify
+          </div>
         </div>
       </div>
 
@@ -121,7 +125,9 @@ const MyPage = () => {
             {memInfo.memEmail}
           </div>
           <div className="text-black">BIRTHDATE</div>
-          <div className="text-my-text-lightblack mb-10">{memInfo.memSex}</div>
+          <div className="text-my-text-lightblack mb-10">
+            {memInfo.memBirth}
+          </div>
           <div className="text-black">GENDER</div>
           <div className="text-my-text-lightblack mb-10">{memInfo.memSex}</div>
         </div>

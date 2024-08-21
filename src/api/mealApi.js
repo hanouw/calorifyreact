@@ -28,11 +28,7 @@ export const getMeal = async ({ memId, date }) => {
 };
 
 export const deleteMeal = async ({ mealIdData, memIdData }) => {
-  const formData = new FormData();
-  formData.append("mealId", mealIdData);
-  formData.append("memId", memIdData);
-
   const response = await axios.delete(
-    `${MEAL_API_SERVER_HOST}/delete?calMealNum=${mealIdData}&memId=${memIdData}`
+    `${MEAL_API_SERVER_HOST}/delete?mealId=${mealIdData}&memId=${memIdData}`
   );
 };

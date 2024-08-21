@@ -26,7 +26,7 @@ const MealDetail = () => {
   };
 
   const handleDelete = (meal, index) => {
-    console.log(typeof meal.mealId, loginInfo.memId);
+    console.log(meal.mealId, loginInfo.memId);
     deleteMeal({
       mealIdData: meal.mealId,
       memIdData: loginInfo.memId,
