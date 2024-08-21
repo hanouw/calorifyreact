@@ -198,7 +198,7 @@ const HeaderComponents = ({ layout }) => {
                 onClick={() => {
                   layout === "basic"
                     ? setIsCalendar(!isCalendar)
-                    : moveToMain();
+                    : (window.location.href = "http://localhost:3000/main");
                 }}
               >
                 Calorify

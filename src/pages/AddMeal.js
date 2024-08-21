@@ -5,27 +5,29 @@ import { useSelector } from "react-redux";
 import { saveMeal } from "../api/mealApi";
 import useCustomMove from "../hooks/useCustomMove";
 import { useDate } from "../layouts/DateContext";
+import Camera from "../component/common/Camera";
 
 const AddMeal = () => {
   // 페이지 이동
   const { moveToMain } = useCustomMove();
   // 이미지 미리보기 파일
-  const [images, setImages] = useState();
+  const [images, setImages] = useState(null);
   // 이미지 실제 파일
-  const [imageFiles, setImageFiles] = useState([]);
+  const [imageFiles, setImageFiles] = useState(null);
   // 음식 정보
   const [data, setData] = useState([]);
+  // 카메라 여부
+  const [isCameraOn, setIsCameraOn] = useState(false);
   // 로그인 정보
   const loginInfo = useSelector((state) => state.loginSlice);
 
   // Main.js 헤더에서 가져온 날짜
   const { date } = useDate();
-  const [saveDate, setSaveDate] = useState(date);
-
   // 시간 계산
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, "0");
   const minutes = String(now.getMinutes()).padStart(2, "0");
+  const [saveDate, setSaveDate] = useState(date + "T" + hours + ":" + minutes);
 
   const handleFileChange = (e) => {
     // 파일 저장
@@ -45,10 +47,24 @@ const AddMeal = () => {
     };
   };
 
+  const handleCameraData = async ({ image, imageFile }) => {
+    setIsCameraOn(!isCameraOn);
+    setImages(image);
+    setImageFiles(imageFile);
+    const foods = ["가지", "김치"];
+    setData([]);
+    for (let i = 0; i < foods.length; i++) {
+      const result = await getFoodData(foods[i]);
+      if (result.body) {
+        setData((prevData) => [...prevData, ...result.body.items]);
+      }
+    }
+  };
+
   const getCalClicked = async () => {
     const foods = ["김치", "볶음밥", "피자"];
     setData([]);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < foods.length; i++) {
       const result = await getFoodData(foods[i]);
       setData((prevData) => [...prevData, ...result.body.items]);
     }
@@ -62,9 +78,15 @@ const AddMeal = () => {
   };
 
   const handleSaveClicked = async () => {
-    if (imageFiles == null) {
+    if (imageFiles == null || images == null) {
       alert("이미지 넣으세요");
     } else {
+      console.log({
+        imageFile: imageFiles,
+        mealData: data,
+        loginInfo: loginInfo.memId,
+        date: saveDate,
+      });
       await saveMeal({
         imageFile: imageFiles,
         mealData: data,
@@ -72,7 +94,7 @@ const AddMeal = () => {
         date: saveDate,
       }).then((result) => {
         console.log(result);
-        moveToMain();
+        window.location.href = "http://localhost:3000/main";
       });
     }
   };
@@ -82,6 +104,7 @@ const AddMeal = () => {
   };
   return (
     <NoCalBasicLayout>
+      {isCameraOn && <Camera callBackFn={handleCameraData} />}
       <div className="my-5">
         <div className="flex text-my-basic-green text-start pl-10 font-[Pretendard-Medium] text-xl">
           사진등록
@@ -106,16 +129,16 @@ const AddMeal = () => {
                     : process.env.PUBLIC_URL + "/assets/imgs/diet.png"
                 }
                 alt={`Uploaded image`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-2xl"
               />
             </div>
           </div>
         </div>
 
-        <div className="flex justify-between items-center text-my-text-ligthgreen font-[Pretendard-Regular] text-sm pb-5 px-10">
+        <div className="flex justify-between items-center text-my-text-ligthgreen font-[Pretendard-Regular] text-sm pb-5 px-10 cursor-pointer">
           <div
             className="flex justify-center items-center w-32 h-10 gap-2 bg-my-basic-green text-white rounded-2xl"
-            onClick={() => alert("카메라 열기")}
+            onClick={() => setIsCameraOn(!isCameraOn)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

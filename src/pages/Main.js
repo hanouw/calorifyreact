@@ -45,13 +45,15 @@ const Main = () => {
 
   return (
     <BasicLayout>
-      <div className="fixed flex w-14 h-14 bottom-5 right-5 rounded-full justify-center items-center bg-my-basic-green">
+      <div
+        className="fixed flex w-14 h-14 bottom-5 right-5 rounded-full justify-center items-center bg-my-basic-green cursor-pointer"
+        onClick={() => moveToAdd()}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="white"
           className="size-6"
-          onClick={() => moveToAdd()}
         >
           <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
           <path
