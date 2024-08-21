@@ -40,6 +40,7 @@ const Main = () => {
       calChange(totalCal);
     });
   }, [date]);
+  
   return (
     <BasicLayout>
       <div className="fixed flex w-14 h-14 bottom-5 right-5 rounded-full justify-center items-center bg-my-basic-green">

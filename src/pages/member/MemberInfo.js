@@ -35,7 +35,7 @@ const MemberInfo = () => {
       weight,
     });
   };
-
+ 
   return (
     <>
       <div className="flex items-center justify-between m-7">
