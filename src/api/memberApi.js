@@ -37,13 +37,13 @@ export const register = async (val) => {
   }
 };
 
-export const deleteMember = async (mid) => {
-  console.log("deleteMember 실행");
-  const response = await axios.delete(
-    `${CALORIFY_API_SERVER_HOST}/members/${mid}`
-  );
-  return response.data;
-};
+// export const deleteMember = async (mid) => {
+//   console.log("deleteMember 실행");
+//   const response = await axios.delete(
+//     `${CALORIFY_API_SERVER_HOST}/members/${mid}`
+//   );
+//   return response.data;
+// };
 
 export const idIsduplicate = async (name) => {
   const response = await axios.get(
@@ -51,3 +51,13 @@ export const idIsduplicate = async (name) => {
   );
   return response.data;
 };
+
+export const getMemInfo = async ({memId}) => {
+  console.log("getMeminfo 실행")
+  const response = await axios.get(
+    `${CALORIFY_API_SERVER_HOST}/members/mem-info/${memId}`
+  );
+  console.log(response);
+  return response.data.RESULT;
+
+}
