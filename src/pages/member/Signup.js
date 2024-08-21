@@ -22,7 +22,7 @@ const Signup = () => {
   const loginInfo = useSelector((state) => state.loginSlice);
 
   const [loginParam, setLoginParam] = useState({ ...initState });
-  const [idDupl, setIdDupl] = useState(true);
+  const [idDupl, setIdDupl] = useState(false);
 
   useEffect(() => {
     if (loginInfo.memIdx) {
@@ -35,10 +35,16 @@ const Signup = () => {
     setLoginParam({ ...loginParam });
   };
 
-  const handleIdDupl = (e) => {
-    idIsduplicate(e.target.value).then((data) => {
+  const handleIdDupl = async (e) => {
+    if (
+      e.target.value !== null &&
+      e.target.value !== undefined &&
+      e.target.value !== ""
+    ) {
+      const data = await idIsduplicate(e.target.value);
       setIdDupl(data.RESULT);
-    });
+      return data.RESULT;
+    }
   };
 
   const validatePassword = () => {
@@ -60,8 +66,8 @@ const Signup = () => {
   };
 
   const handleClickSignup = () => {
-    handleIdDupl(loginParam.memId);
-    if (idDupl) {
+    const isId = handleIdDupl({ target: { value: loginParam.memId } });
+    if (isId) {
       alert("이미 사용중인 아이디입니다.");
       return;
     }
