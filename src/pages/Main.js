@@ -40,6 +40,7 @@ const Main = () => {
       });
     }
   }, [date]);
+  
   return (
     <BasicLayout>
       <div
