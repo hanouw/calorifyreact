@@ -25,20 +25,20 @@ const Main = () => {
   };
 
   useEffect(() => {
-    console.log(date);
-    // calClean();
-    getMeal({ memId: loginInfo.memId, date: date }).then((data) => {
-      console.log(data);
-      setMealList(data.RESULT);
+    if (loginInfo.memId != undefined) {
+      getMeal({ memId: loginInfo.memId, date: date }).then((data) => {
+        console.log(data);
+        setMealList(data.RESULT);
 
-      let totalCal = 0;
-      for (let i = 0; i < data.RESULT.length; i++) {
-        for (let j = 0; j < data.RESULT[i].length; j++) {
-          totalCal += parseFloat(data.RESULT[i][j].calCal);
+        let totalCal = 0;
+        for (let i = 0; i < data.RESULT.length; i++) {
+          for (let j = 0; j < data.RESULT[i].length; j++) {
+            totalCal += parseFloat(data.RESULT[i][j].calCal);
+          }
         }
-      }
-      calChange(totalCal);
-    });
+        calChange(totalCal);
+      });
+    }
   }, [date]);
   
   return (

@@ -14,6 +14,7 @@ module.exports = {
         "my-text-background": "#F1F1F1",
         "my-text-ligthgreen": "#BED7BA",
         "my-graph-orange": "#E5A07F",
+        "my-warning-red": "#FF6565",
       },
       width: {
         // mywidth90: "90vw",

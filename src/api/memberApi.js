@@ -4,15 +4,13 @@ export const CALORIFY_API_SERVER_HOST = "http://localhost:8083";
 
 export const loginPost = async (loginParam) => {
   const header = { Headers: { "Content-Type": "x-www-form-urlencoded" } };
+  console.log(loginParam.memId);
+  console.log(loginParam.password);
   const form = new FormData();
   form.append("username", loginParam.memId);
   form.append("password", loginParam.password);
 
-  // const object = {};
-  // form.forEach((value, key) => {
-  //   object[key] = value;
-  // });
-  // console.log(JSON.stringify(object));
+  console.log(loginParam);
 
   const response = await axios.post(
     `${CALORIFY_API_SERVER_HOST}/api/login`,
@@ -32,7 +30,11 @@ export const register = async (val) => {
     val,
     header
   );
-  return response.data;
+  if (response.data.error == "ERROR_LOGIN") {
+    return response.data;
+  } else {
+    return { memId: val.memId, password: val.password };
+  }
 };
 
 export const deleteMember = async (mid) => {
@@ -43,9 +45,9 @@ export const deleteMember = async (mid) => {
   return response.data;
 };
 
-export const nameIsduplicate = async (name) => {
+export const idIsduplicate = async (name) => {
   const response = await axios.get(
-    `${CALORIFY_API_SERVER_HOST}/members/name?name=${name}`
+    `${CALORIFY_API_SERVER_HOST}/members/${name}`
   );
   return response.data;
 };

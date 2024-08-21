@@ -243,8 +243,16 @@ const HeaderComponents = ({ layout }) => {
             </span>
             <div className="relative rounded-xl border border-my-text-deepblack w-4/5 h-3 bg-gray-200">
               <div
-                className="absolute top-0 left-0 h-full bg-my-graph-orange rounded-l-xl"
-                style={{ width: `${(cal / 2890) * 100}%` }}
+                className={`absolute top-0 left-0 h-full ${
+                  (cal / 2890) * 100 > 100
+                    ? "rounded-xl bg-my-warning-red"
+                    : "rounded-l-xl bg-my-graph-orange"
+                }`}
+                style={{
+                  width: `${
+                    (cal / 2890) * 100 > 100 ? 100 : (cal / 2890) * 100
+                  }%`,
+                }}
               />
             </div>
           </div>
