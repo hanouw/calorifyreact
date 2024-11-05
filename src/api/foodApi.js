@@ -24,6 +24,9 @@ export const getFoodData = async (food) => {
 // };
 
 export const getYolo = async (file) => {
+
+  console.log(file + "footAPI file check")
+
   try {
     const formData = new FormData();
     formData.append("image", file);
@@ -37,6 +40,8 @@ export const getYolo = async (file) => {
         },
       }
     );
+
+    console.log(response.data + "foodApi");
 
     return response.data;
   } catch (error) {
