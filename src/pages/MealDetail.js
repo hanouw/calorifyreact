@@ -108,25 +108,25 @@ const MealDetail = () => {
               <div className="font-[Pretendard-Light] px-7 py-3">
                 <div className="flex justify-between py-1">
                   <span>탄수화물</span>
-                  <span>{meal.calCarb} g</span>
+                  <span>{meal.calCarb || 0} g</span>
                 </div>
                 <div className="flex justify-between py-1">
                   <span>단백질</span>
-                  <span>{meal.calProt} g</span>
+                  <span>{meal.calProt || 0} g</span>
                 </div>
                 <div className="flex justify-between py-1">
                   <span>지방</span>
-                  <span>{meal.calFat} g</span>
+                  <span>{meal.calFat || 0} g</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span>식이섬유</span>
-                  <span>{meal.calFib || "NA"} g</span>
+                  <span>당류</span>
+                  <span>{meal.Sug || 0} g</span>
                 </div>
               </div>
             </div>
 
-            {/* 수정 버튼 */}
             <div className="absolute top-0 right-0 h-full flex ">
+              {/* 수정 버튼 */}
               <div className="relative top-0 right-0 h-full flex transition-transform duration-500">
                 <div className="bg-green-500 text-white flex justify-center items-center translate-x-6 w-36 rounded-lg z-20 pl-[24px]">
                   <svg

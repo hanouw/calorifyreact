@@ -7,6 +7,7 @@ const foodApiStartWith = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService
 //   desc_kor=바나나칩&pageNo=1&numOfRows=5&type=json
 
 export const getFoodData = async (food) => {
+  console.log(food);
   const response = await axios.get(
     `${foodApiStartWith}desc_kor=${food}&pageNo=1&numOfRows=1&type=json`
   );

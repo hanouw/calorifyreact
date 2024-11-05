@@ -52,12 +52,11 @@ export const idIsduplicate = async (name) => {
   return response.data;
 };
 
-export const getMemInfo = async ({memId}) => {
-  console.log("getMeminfo 실행")
+export const getMemInfo = async ({ memId }) => {
+  console.log("getMeminfo 실행");
   const response = await axios.get(
     `${CALORIFY_API_SERVER_HOST}/members/mem-info/${memId}`
   );
   console.log(response);
   return response.data.RESULT;
-
-}
+};
