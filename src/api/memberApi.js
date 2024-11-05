@@ -60,3 +60,14 @@ export const getMemInfo = async ({ memId }) => {
   console.log(response);
   return response.data.RESULT;
 };
+
+export const memberModify = async (memId, data) => {
+  console.log(memId);
+  console.log(data);
+  const response = await axios.put(
+    `${CALORIFY_API_SERVER_HOST}/members/${memId}`,
+    data
+  );
+  console.log(response);
+  return response.data.RESULT;
+};
