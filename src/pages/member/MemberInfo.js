@@ -9,7 +9,7 @@ const MemberInfo = () => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
 
-  // 이 부분은 실제 데이터로 대체해야 합니다
+
   const memberData = {
     id: "user123",
     password: "********",
