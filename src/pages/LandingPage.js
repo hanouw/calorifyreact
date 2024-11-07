@@ -1,10 +1,8 @@
 import React from "react";
 import useCustomMove from "../hooks/useCustomMove";
 
-
-
 const LandingPage = () => {
-  const { moveToMain } = useCustomMove();
+  const { moveToSignup, moveToLogin } = useCustomMove();
 
   return (
     <>
@@ -38,11 +36,17 @@ const LandingPage = () => {
 
         <div className="flex items-center justify-center pt-10">
           <button
-            className="py-2 px-7 text-white bg-my-basic-green rounded-xl shadow-gray-400 shadow-md"
-            onClick={() => moveToMain()}
+            className="py-2 px-7 text-white bg-my-basic-green rounded-xl shadow-gray-400 shadow-md cursor-pointer"
+            onClick={() => moveToSignup()}
           >
             회원가입하고 시작하기
           </button>
+        </div>
+        <div
+          className="py-2 px-7 text-my-basic-green hover:underline cursor-pointer"
+          onClick={() => moveToLogin()}
+        >
+          로그인하기
         </div>
       </div>
 
