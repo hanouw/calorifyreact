@@ -6,6 +6,7 @@ import { saveMeal } from "../api/mealApi";
 import useCustomMove from "../hooks/useCustomMove";
 import { useDate } from "../layouts/DateContext";
 import Camera from "../component/common/Camera";
+import Spinner from "../hooks/spinner.js";
 
 const AddMeal = () => {
   // 페이지 이동
@@ -24,6 +25,8 @@ const AddMeal = () => {
   const [isModifyOpen, setIsModifyOpen] = useState([]);
   // 새로고침
   const [refresh, setRefresh] = useState(false);
+  // 로딩
+  const [loading, setLoading] = useState(false);
 
   // Main.js 헤더에서 가져온 날짜
   const { date } = useDate();
@@ -42,21 +45,27 @@ const AddMeal = () => {
   }, [data]);
 
   const handleFileChange = (e) => {
-    // 파일 저장
-    const file = e.target.files[0];
-    setImageFiles(file);
+    try {
+      // 파일 저장
+      const file = e.target.files[0];
+      setImageFiles(file);
 
-    // getName();
-    getName(file);
+      console.log(file);
 
-    // 미리보기 이미지
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+      // 미리보기 이미지
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-    reader.onload = () => {
-      const temp = reader.result;
-      setImages(temp);
-    };
+      reader.onload = () => {
+        const temp = reader.result;
+        setImages(temp);
+      };
+
+      // getName();
+      getName(file);
+    } catch {
+      console.log("이미지 선택 안함");
+    }
   };
 
   const handleCameraData = async ({ image, imageFile }) => {
@@ -99,13 +108,22 @@ const AddMeal = () => {
   };
 
   const getName = async (data) => {
-    const result = await getYolo(data).then((returnData) => {
-      console.log(returnData);
-      getCalClicked(returnData.food_classes);
-      return returnData;
-    });
-    console.log(result);
-    // setImages(result.image);
+    let result;
+    setLoading(true);
+    try {
+      result = await getYolo(data).then((returnData) => {
+        console.log(returnData);
+        getCalClicked(returnData.food_classes).then(() => {
+          setLoading(false);
+        });
+        return returnData;
+      });
+    } catch {
+      getCalClicked(["밥"]).then(() => {
+        setLoading(false);
+      });
+    }
+
     return result;
   };
 
@@ -136,6 +154,11 @@ const AddMeal = () => {
   };
   return (
     <NoCalBasicLayout>
+      {loading && (
+        <div className="fixed w-full h-full inset-0 bg-gray-200 bg-opacity-55 z-40 flex justify-center items-center">
+          <Spinner />
+        </div>
+      )}
       {isCameraOn && <Camera callBackFn={handleCameraData} />}
       <div className="my-5">
         <div className="flex text-my-basic-green text-start pl-10 font-[Pretendard-Medium] text-xl">

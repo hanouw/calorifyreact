@@ -59,7 +59,7 @@ const Camera = ({ callBackFn }) => {
 
   return (
     <div>
-      <Dialog open={open} onClose={setOpen} className="relative z-10">
+      <Dialog open={open} onClose={setOpen} className="relative z-40">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
@@ -69,7 +69,7 @@ const Camera = ({ callBackFn }) => {
           <div className="flex min-h-full items-end justify-center p-4 text-center lg:items-center lg:p-0">
             <DialogPanel
               transition
-              className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in lg:my-8 lg:w-full lg:max-w-lg data-[closed]:lg:translate-y-0 data-[closed]:lg:scale-95"
+              className="relative transform overflow-hidden max-h-[90vh] rounded-lg bg-white text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in lg:my-8 lg:w-full lg:max-w-lg data-[closed]:lg:translate-y-0 data-[closed]:lg:scale-95"
             >
               <div className="flex bg-white px-4 pb-4 pt-5 justify-center">
                 {/* --------------------------------------- */}
@@ -96,22 +96,6 @@ const Camera = ({ callBackFn }) => {
                 )}
               </div>
               <div className="flex justify-center w-full">
-                <button
-                  type="button"
-                  onClick={() => capturePhoto()}
-                  className="w-full rounded-md border-2 border-my-graph-orange mx-4 lg:mx-24 py-2 text-sm font-[Pretendard-SemiBold] text-my-graph-orange shadow-sm hover:text-white hover:bg-my-graph-orange"
-                >
-                  촬영
-                </button>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 lg:flex lg:flex-row-reverse lg:px-6">
-                <button
-                  type="button"
-                  onClick={() => handleSaveButton()}
-                  className="inline-flex w-full justify-center rounded-md bg-my-basic-green px-3 py-2 text-sm font-[Pretendard-SemiBold] text-white shadow-sm hover:bg-my-graph-orange lg:ml-3 lg:w-auto"
-                >
-                  저장
-                </button>
                 {image ? (
                   <button
                     type="button"
@@ -119,20 +103,36 @@ const Camera = ({ callBackFn }) => {
                       setRefresh(!refresh);
                       setImage(null);
                     }}
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-[Pretendard-SemiBold] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 lg:mt-0 lg:w-auto"
+                    className="w-full rounded-md border-2 border-my-graph-orange mx-4 lg:mx-24 py-2 text-sm font-[Pretendard-SemiBold] text-my-graph-orange shadow-sm hover:text-white hover:bg-my-graph-orange"
                   >
                     다시 촬영하기
                   </button>
                 ) : (
                   <button
                     type="button"
-                    data-autofocus
-                    onClick={() => setOpen(false)}
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-[Pretendard-SemiBold] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 lg:ml-3 lg:mt-0 lg:w-auto"
+                    onClick={() => capturePhoto()}
+                    className={`w-full rounded-md border-2 border-my-graph-orange mx-4 lg:mx-24 py-2 text-sm font-[Pretendard-SemiBold] text-my-graph-orange shadow-sm hover:text-white hover:bg-my-graph-orange`}
                   >
-                    취소
+                    촬영
                   </button>
                 )}
+              </div>
+              <div className="px-4 py-3 lg:flex lg:flex-row-reverse lg:px-6">
+                <button
+                  type="button"
+                  onClick={() => handleSaveButton()}
+                  className="inline-flex w-full justify-center rounded-md bg-my-basic-green px-3 py-2 text-sm font-[Pretendard-SemiBold] text-white shadow-sm hover:bg-my-graph-orange lg:ml-3 lg:w-auto"
+                >
+                  저장
+                </button>
+                <button
+                  type="button"
+                  data-autofocus
+                  onClick={() => setOpen(false)}
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-[Pretendard-SemiBold] text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 lg:ml-3 lg:mt-0 lg:w-auto"
+                >
+                  취소
+                </button>
               </div>
             </DialogPanel>
           </div>
