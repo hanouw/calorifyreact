@@ -14,23 +14,13 @@ const MemberInfo = () => {
   const [refresh, setRefresh] = useState(true);
   const loginInfo = useSelector((state) => state.loginSlice);
 
-<<<<<<< HEAD
-
-  const memberData = {
-    id: "user123",
-    password: "********",
-    email: "user@example.com",
-    birthDate: "1990-01-01",
-    gender: "남성",
-    joinDate: "2023-01-01",
-=======
   const memberInit = {
     id: "",
     password: "",
     email: "",
     birthDate: "",
     gender: "",
->>>>>>> refs/remotes/origin/master
+
   };
 
   const [memberData, setMemberData] = useState({ ...memberInit });
