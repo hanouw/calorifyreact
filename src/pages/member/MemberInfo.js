@@ -20,6 +20,7 @@ const MemberInfo = () => {
     email: "",
     birthDate: "",
     gender: "",
+
   };
 
   const [memberData, setMemberData] = useState({ ...memberInit });
