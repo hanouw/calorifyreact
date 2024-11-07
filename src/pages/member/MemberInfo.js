@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useCustomMove from "../../hooks/useCustomMove";
+import { getMemInfo, memberModify } from "../../api/memberApi";
+import { useSelector } from "react-redux";
+import { login } from "../../slices/loginSlice";
 
 const MemberInfo = () => {
-  const { moveToMain, moveToMyPage } = useCustomMove();
+  const { moveToMyPage } = useCustomMove();
   const [profileImage, setProfileImage] = useState("/assets/imgs/meal.png");
   const [statusMessage, setStatusMessage] = useState("");
   const [nickname, setNickname] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+  const [refresh, setRefresh] = useState(true);
+  const loginInfo = useSelector((state) => state.loginSlice);
 
+<<<<<<< HEAD
 
   const memberData = {
     id: "user123",
@@ -17,7 +23,35 @@ const MemberInfo = () => {
     birthDate: "1990-01-01",
     gender: "남성",
     joinDate: "2023-01-01",
+=======
+  const memberInit = {
+    id: "",
+    password: "",
+    email: "",
+    birthDate: "",
+    gender: "",
+>>>>>>> refs/remotes/origin/master
   };
+
+  const [memberData, setMemberData] = useState({ ...memberInit });
+
+  useEffect(() => {
+    getMemInfo({ memId: loginInfo.memId }).then((data) => {
+      const date = new Date(data.memBirth);
+      setHeight(data.memHeight);
+      setWeight(data.memWeight);
+      setNickname(data.memNickname);
+      setMemberData({
+        id: loginInfo.memId,
+        password: "",
+        email: data.memEmail,
+        birthDate: `${date.getFullYear()}.${String(
+          date.getMonth() + 1
+        ).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`,
+        gender: data.memSex,
+      });
+    });
+  }, [refresh]);
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -25,7 +59,7 @@ const MemberInfo = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("정보 업데이트:", {
       profileImage,
@@ -34,8 +68,16 @@ const MemberInfo = () => {
       height,
       weight,
     });
+    const result = await memberModify(loginInfo.memId, {
+      memNickname: nickname,
+      memHeight: height,
+      memWeight: weight,
+      memStatMsg: statusMessage,
+    }).then(() => {
+      setRefresh(!refresh);
+    });
   };
- 
+
   return (
     <>
       <div className="flex items-center justify-between m-7">
