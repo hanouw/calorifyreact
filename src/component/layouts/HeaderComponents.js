@@ -100,7 +100,7 @@ const HeaderComponents = ({ layout }) => {
               className="flex text-start font-[Pretendard-Medium] text-3xl text-white cursor-pointer"
               onClick={() => setIsCalendar(!isCalendar)}
             >
-              Calorify
+              Calorder
             </span>
             <div
               className="justify-center text-white text-xl font-[Pretendard-Bold] px-10 pt-10 pb-7 cursor-pointer"
@@ -201,7 +201,7 @@ const HeaderComponents = ({ layout }) => {
                     : (window.location.href = "http://3.39.76.255:3000/main");
                 }}
               >
-                Calorify
+                Calorder
               </span>
               <img
                 src={process.env.PUBLIC_URL + "/assets/imgs/meal.png"}

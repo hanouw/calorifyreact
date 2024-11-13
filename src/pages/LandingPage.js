@@ -28,7 +28,7 @@ const LandingPage = () => {
       <div className="py-32">
         <div className="flex items-center justify-center">
           <div className="pt-20 text-my-basic-green text-5xl font-semibold">
-            Calorify
+            Calorder
           </div>
           <div className="pt-28 text-lg font-semibold">에 오신 것을</div>
         </div>

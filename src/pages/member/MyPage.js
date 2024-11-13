@@ -103,7 +103,7 @@ const MyPage = () => {
             </div>
           </div>
           <div className="text-white text-8xl text-opacity-10 -translate-y-3">
-            Calorify
+            Calorder
           </div>
         </div>
       </div>
