@@ -144,7 +144,7 @@ const AddMeal = () => {
         date: saveDate,
       }).then((result) => {
         console.log(result);
-        window.location.href = "http://localhost:3000/main";
+        window.location.href = "http://3.39.76.255:3000/main";
       });
     }
   };

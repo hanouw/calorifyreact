@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const CALORIFY_API_SERVER_HOST = "http://localhost:8083";
+export const CALORIFY_API_SERVER_HOST = "http://3.39.76.255:8083";
 
 export const loginPost = async (loginParam) => {
   const header = { Headers: { "Content-Type": "x-www-form-urlencoded" } };
