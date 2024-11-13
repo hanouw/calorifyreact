@@ -48,9 +48,12 @@ const AddMeal = () => {
     try {
       // 파일 저장
       const file = e.target.files[0];
-      setImageFiles(file);
+      if (!file) {
+        console.log("파일이 선택되지 않았습니다.");
+        return;
+      }
 
-      //console.log(file);
+      setImageFiles(file);
 
       // 미리보기 이미지
       const reader = new FileReader();
@@ -59,12 +62,16 @@ const AddMeal = () => {
       reader.onload = () => {
         const temp = reader.result;
         setImages(temp);
+        console.log("이미지 미리보기 설정 성공");
       };
 
-      // getName();
+      reader.onerror = (error) => {
+        console.error("이미지 파일을 읽는 중 오류가 발생했습니다.", error);
+      };
+
       getName(file);
-    } catch {
-      //console.log("이미지 선택 안함");
+    } catch (error) {
+      console.error("파일 처리 중 오류 발생", error);
     }
   };
 
@@ -99,14 +106,16 @@ const AddMeal = () => {
 
   const getCalClicked = async (data) => {
     try {
-      //console.log(data);
       const foods = data;
       setData([]);
       for (let i = 0; i < foods.length; i++) {
         const result = await getFoodData(foods[i]);
-        setData((prevData) => [...prevData, ...result.body.items]);
+        const newVal = result.body.items;
+        setData((prevData) => [...prevData, ...newVal]);
       }
-    } catch {}
+    } catch {
+      console.log("error");
+    }
   };
 
   const getName = async (data) => {
@@ -114,19 +123,15 @@ const AddMeal = () => {
     setLoading(true);
     try {
       result = await getYolo(data).then((returnData) => {
-        //console.log(returnData);
         getCalClicked(returnData.food_classes).then(() => {
           setLoading(false);
         });
-        return returnData;
       });
     } catch {
       getCalClicked(["밥"]).then(() => {
         setLoading(false);
       });
     }
-
-    return result;
   };
 
   const handleSaveClicked = async () => {

@@ -38,8 +38,8 @@ const Camera = ({ callBackFn }) => {
           alert("카메라에 접근할 수 없습니다. 브라우저 설정을 확인해 주세요.");
         });
     } else {
-      console.log("이 브라우저에서는 카메라 접근이 지원되지 않습니다.");
-      alert("이 브라우저는 카메라 기능을 지원하지 않습니다.");
+      alert("현재 카메라 기능을 지원하지 않습니다. 파일을 업로드해 주세요.");
+      setIsCameraOn(false);
     }
   };
 

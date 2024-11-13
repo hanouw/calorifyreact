@@ -11,7 +11,7 @@ const ErrorPage = () => {
         <p className="text-center text-gray-600">잠시 뒤에 다시 시도해주세요</p>
         <div className="flex justify-center">
           <button
-            onClick={() => navigate(-2)}
+            onClick={(window.location.href = "http://3.39.76.255:3000/main")}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 cursor-pointer"
           >
             이전 화면으로 돌아가기

@@ -30,7 +30,7 @@ const LoginPage = () => {
     execLogin(loginParam).then((data) => {
       //console.log(data);
       if (data.error == "ERROR_LOGIN") {
-        alert("뭔가 틀림 잘못됐을수도");
+        alert("아이디 또는 비밀번호를 다시 확인해주세요");
       } else {
         moveToMain();
       }

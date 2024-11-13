@@ -31,7 +31,7 @@ export const getYolo = async (file) => {
     formData.append("image", file);
 
     const response = await axios.post(
-      "http://127.0.0.1:5000/detect",
+      "http://3.39.76.255:5000/detect",
       formData,
       {
         headers: {
