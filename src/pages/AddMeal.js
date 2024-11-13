@@ -106,8 +106,7 @@ const AddMeal = () => {
         const result = await getFoodData(foods[i]);
         setData((prevData) => [...prevData, ...result.body.items]);
       }
-    } catch {
-    }
+    } catch {}
   };
 
   const getName = async (data) => {
@@ -134,12 +133,6 @@ const AddMeal = () => {
     if (imageFiles == null || images == null) {
       alert("이미지 넣으세요");
     } else {
-      //console.log({
-        imageFile: imageFiles,
-        mealData: data,
-        loginInfo: loginInfo.memId,
-        date: saveDate,
-      });
       await saveMeal({
         imageFile: imageFiles,
         mealData: data,
