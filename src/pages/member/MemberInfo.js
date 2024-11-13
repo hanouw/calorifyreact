@@ -20,7 +20,6 @@ const MemberInfo = () => {
     email: "",
     birthDate: "",
     gender: "",
-
   };
 
   const [memberData, setMemberData] = useState({ ...memberInit });
@@ -51,13 +50,6 @@ const MemberInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log("정보 업데이트:", {
-      profileImage,
-      statusMessage,
-      nickname,
-      height,
-      weight,
-    });
     const result = await memberModify(loginInfo.memId, {
       memNickname: nickname,
       memHeight: height,
