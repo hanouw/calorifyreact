@@ -20,8 +20,8 @@ const useCustomMove = () => {
   };
 
   const moveToDetail = (meal) => {
-    console.log("Data being passed to MealDetail:", meal);
-    navigate({ pathname: `/detail`} , {state: {mealList: meal}});
+    //console.log("Data being passed to MealDetail:", meal);
+    navigate({ pathname: `/detail` }, { state: { mealList: meal } });
   };
 
   const moveToMyPage = () => {
@@ -37,8 +37,8 @@ const useCustomMove = () => {
   };
 
   const moveToMemInfo = () => {
-    navigate({ pathname: '/member/meminfo'})
-  }
+    navigate({ pathname: "/member/meminfo" });
+  };
 
   return {
     moveToBack,

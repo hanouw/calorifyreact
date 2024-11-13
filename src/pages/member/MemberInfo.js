@@ -51,7 +51,7 @@ const MemberInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("정보 업데이트:", {
+    //console.log("정보 업데이트:", {
       profileImage,
       statusMessage,
       nickname,

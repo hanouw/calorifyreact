@@ -28,7 +28,7 @@ const LoginPage = () => {
 
   const handleClickLogin = () => {
     execLogin(loginParam).then((data) => {
-      console.log(data);
+      //console.log(data);
       if (data.error == "ERROR_LOGIN") {
         alert("뭔가 틀림 잘못됐을수도");
       } else {

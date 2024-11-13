@@ -14,7 +14,7 @@ const useCustomLogin = () => {
 
   // 로그인 함수
   const execLogin = async (loginParam) => {
-    console.log(loginParam);
+    //console.log(loginParam);
     const action = await dispatch(loginPostAsync(loginParam));
     return action.payload;
   };

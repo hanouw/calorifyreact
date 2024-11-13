@@ -16,19 +16,19 @@ const refreshJWT = async (accessToken, refreshToken) => {
     `${BEFREE_API_SERVER_HOST}/member/refresh?refreshToken=${refreshToken}`,
     header
   );
-  //console.log("*******************");
-  //console.log(response.data);
+  ////console.log("*******************");
+  ////console.log(response.data);
   return response.data;
 };
 
 // request 전
 const beforeReq = (config) => {
-  //console.log("before request");
+  ////console.log("before request");
   // member 쿠키꺼내기
   const memberInfo = getCookie("member");
   // 쿠키 없을때 예외 발생
   if (!memberInfo) {
-    //console.log("Member Cookie Not found");
+    ////console.log("Member Cookie Not found");
     return Promise.reject({
       response: { data: { error: "REQUIRE_LOGIN" } },
     });
@@ -40,13 +40,13 @@ const beforeReq = (config) => {
 };
 // request 실패
 const requestFail = (error) => {
-  //console.log("request error");
+  ////console.log("request error");
   return Promise.reject(error);
 };
 // response 전
 const beforeRes = async (res) => {
-  //console.log("before return response");
-  //console.log(res);
+  ////console.log("before return response");
+  ////console.log(res);
   const data = res.data; // API 서버에서 보내준 응답 데이터
   if (data.error) {
     const memberCookie = getCookie("member");
@@ -54,7 +54,7 @@ const beforeRes = async (res) => {
       memberCookie.accessToken,
       memberCookie.refreshToken
     );
-    //console.log("refreshed token : ", result);
+    ////console.log("refreshed token : ", result);
     // 쿠키의 토큰값 갱신
     memberCookie.accessToken = result.accessToken;
     memberCookie.refreshToken = result.refreshToken;
@@ -68,7 +68,7 @@ const beforeRes = async (res) => {
 };
 // response 실패
 const responseFail = (error) => {
-  //console.log("response fail");
+  ////console.log("response fail");
   return Promise.reject(error);
 };
 

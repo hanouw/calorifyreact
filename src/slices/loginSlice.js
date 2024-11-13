@@ -10,7 +10,7 @@ const initState = {
 // 쿠키있는지 확인 함수 추가
 const getMemberCookie = () => {
   const memberInfo = getCookie("member");
-  //console.log("memberInfo", memberInfo)
+  ////console.log("memberInfo", memberInfo)
   if (memberInfo && memberInfo.name) {
     // 한글깨짐 대비
     memberInfo.name = decodeURIComponent(memberInfo.name);
@@ -37,7 +37,7 @@ const loginSlice = createSlice({
       return data;
     },
     logout: (state, action) => {
-      //console.log("loginSlice logout 실행")
+      ////console.log("loginSlice logout 실행")
       removeCookie("member");
       return { ...initState };
     },
@@ -46,7 +46,7 @@ const loginSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginPostAsync.fulfilled, (state, action) => {
-        //console.log("fulfilled");
+        ////console.log("fulfilled");
         const payload = action.payload;
         // 정상 처리시에만 쿠키 생성
         if (!payload.error) {
@@ -55,10 +55,10 @@ const loginSlice = createSlice({
         return payload;
       })
       .addCase(loginPostAsync.pending, (state, action) => {
-        //console.log("pending");
+        ////console.log("pending");
       })
       .addCase(loginPostAsync.rejected, (state, action) => {
-        //console.log("rejected");
+        ////console.log("rejected");
       });
   },
 });

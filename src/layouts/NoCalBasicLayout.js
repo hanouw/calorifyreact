@@ -6,7 +6,7 @@ const BasicLayout = ({ children }) => {
 
   const dateChange = (date) => {
     setDate(date);
-    console.log("실행됨" + date);
+    //console.log("실행됨" + date);
   };
   return (
     <>

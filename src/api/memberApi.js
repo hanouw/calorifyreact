@@ -4,13 +4,13 @@ export const CALORIFY_API_SERVER_HOST = "http://3.39.76.255:8083";
 
 export const loginPost = async (loginParam) => {
   const header = { Headers: { "Content-Type": "x-www-form-urlencoded" } };
-  console.log(loginParam.memId);
-  console.log(loginParam.password);
+  //console.log(loginParam.memId);
+  //console.log(loginParam.password);
   const form = new FormData();
   form.append("username", loginParam.memId);
   form.append("password", loginParam.password);
 
-  console.log(loginParam);
+  //console.log(loginParam);
 
   const response = await axios.post(
     `${CALORIFY_API_SERVER_HOST}/api/login`,
@@ -22,7 +22,7 @@ export const loginPost = async (loginParam) => {
 };
 
 export const register = async (val) => {
-  console.log("register 실행", val);
+  //console.log("register 실행", val);
   const header = { Headers: { "Content-Type": "application/json" } };
 
   const response = await axios.post(
@@ -38,7 +38,7 @@ export const register = async (val) => {
 };
 
 // export const deleteMember = async (mid) => {
-//   console.log("deleteMember 실행");
+//   //console.log("deleteMember 실행");
 //   const response = await axios.delete(
 //     `${CALORIFY_API_SERVER_HOST}/members/${mid}`
 //   );
@@ -53,21 +53,21 @@ export const idIsduplicate = async (name) => {
 };
 
 export const getMemInfo = async ({ memId }) => {
-  console.log("getMeminfo 실행");
+  //console.log("getMeminfo 실행");
   const response = await axios.get(
     `${CALORIFY_API_SERVER_HOST}/members/mem-info/${memId}`
   );
-  console.log(response);
+  //console.log(response);
   return response.data.RESULT;
 };
 
 export const memberModify = async (memId, data) => {
-  console.log(memId);
-  console.log(data);
+  //console.log(memId);
+  //console.log(data);
   const response = await axios.put(
     `${CALORIFY_API_SERVER_HOST}/members/${memId}`,
     data
   );
-  console.log(response);
+  //console.log(response);
   return response.data.RESULT;
 };

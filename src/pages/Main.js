@@ -27,7 +27,7 @@ const Main = () => {
   useEffect(() => {
     if (loginInfo.memId != undefined) {
       getMeal({ memId: loginInfo.memId, date: date }).then((data) => {
-        console.log(data);
+        //console.log(data);
         setMealList(data.RESULT);
 
         let totalCal = 0;
@@ -41,7 +41,7 @@ const Main = () => {
     }
   }, [date]);
 
-  console.log(mealList);
+  //console.log(mealList);
 
   return (
     <BasicLayout>

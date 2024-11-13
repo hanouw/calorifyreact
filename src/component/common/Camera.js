@@ -19,42 +19,56 @@ const Camera = ({ callBackFn }) => {
   };
 
   const startCamera = () => {
-    // 카메라 접근 및 스트리밍 시작
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-      })
-      .catch((err) => {
-        console.error("Error accessing camera: ", err);
-      });
+    // 카메라 접근 및 스트리밍 시작 (navigator와 getUserMedia 지원 확인)
+    if (
+      typeof navigator !== "undefined" &&
+      navigator.mediaDevices &&
+      navigator.mediaDevices.getUserMedia
+    ) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then((stream) => {
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            videoRef.current.play();
+          }
+        })
+        .catch((err) => {
+          console.error("Error accessing camera: ", err);
+          alert("카메라에 접근할 수 없습니다. 브라우저 설정을 확인해 주세요.");
+        });
+    } else {
+      console.log("이 브라우저에서는 카메라 접근이 지원되지 않습니다.");
+      alert("이 브라우저는 카메라 기능을 지원하지 않습니다.");
+    }
   };
 
   // 사진 촬영
   const capturePhoto = () => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
-    const context = canvas.getContext("2d");
+    if (canvas && video) {
+      const context = canvas.getContext("2d");
 
-    // 캔버스 크기를 비디오 크기로 설정
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+      // 캔버스 크기를 비디오 크기로 설정
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
 
-    // 캔버스에 비디오의 현재 프레임 그리기
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // 캔버스에 비디오의 현재 프레임 그리기
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // 캔버스의 이미지를 data URL로 변환
-    const dataURL = canvas.toDataURL("image/png");
-    setImage(dataURL);
+      // 캔버스의 이미지를 data URL로 변환
+      const dataURL = canvas.toDataURL("image/png");
+      setImage(dataURL);
 
-    // 캔버스의 이미지를 Blob으로 변환하여 File 객체로 저장
-    canvas.toBlob((blob) => {
-      const file = new File([blob], "captured_image.png", {
-        type: "image/png",
-      });
-      setImageFile(file);
-    }, "image/png");
+      // 캔버스의 이미지를 Blob으로 변환하여 File 객체로 저장
+      canvas.toBlob((blob) => {
+        const file = new File([blob], "captured_image.png", {
+          type: "image/png",
+        });
+        setImageFile(file);
+      }, "image/png");
+    }
   };
 
   return (

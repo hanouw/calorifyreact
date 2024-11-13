@@ -14,7 +14,7 @@ const HeaderComponents = ({ layout }) => {
   const dow = ["일", "월", "화", "수", "목", "금", "토"];
 
   useEffect(() => {
-    console.log(loginInfo);
+    //console.log(loginInfo);
     if (!loginInfo.memId) {
       alert("로그인이 필요합니다");
       moveToLogin();

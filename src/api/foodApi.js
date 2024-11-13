@@ -7,11 +7,11 @@ const foodApiStartWith = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService
 //   desc_kor=바나나칩&pageNo=1&numOfRows=5&type=json
 
 export const getFoodData = async (food) => {
-  console.log(food);
+  // //console.log(food);
   const response = await axios.get(
     `${foodApiStartWith}desc_kor=${food}&pageNo=1&numOfRows=1&type=json`
   );
-  console.log(response);
+  //console.log(response);
   return response.data;
 };
 
@@ -24,8 +24,7 @@ export const getFoodData = async (food) => {
 // };
 
 export const getYolo = async (file) => {
-
-  console.log(file + "footAPI file check")
+  //console.log(file + "footAPI file check")
 
   try {
     const formData = new FormData();
@@ -41,7 +40,7 @@ export const getYolo = async (file) => {
       }
     );
 
-    console.log(response.data + "foodApi");
+    //console.log(response.data + "foodApi");
 
     return response.data;
   } catch (error) {
