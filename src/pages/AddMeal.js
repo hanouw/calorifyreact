@@ -69,8 +69,8 @@ const AddMeal = () => {
   };
 
   const handleCameraData = async ({ image, imageFile, isSuccess }) => {
+    setIsCameraOn(!isCameraOn);
     if (isSuccess) {
-      setIsCameraOn(!isCameraOn);
       setImages(image);
       setImageFiles(imageFile);
       getName(imageFile);
@@ -111,18 +111,18 @@ const AddMeal = () => {
   const getName = async (data) => {
     let result;
     setLoading(true);
-    try {
-      result = await getYolo(data).then((returnData) => {
-        getCalClicked(returnData.food_classes).then(() => {
-          setLoading(false);
-        });
-        return returnData;
-      });
-    } catch {
-      getCalClicked(["밥"]).then(() => {
-        setLoading(false);
-      });
-    }
+    // try {
+    //   result = await getYolo(data).then((returnData) => {
+    //     getCalClicked(returnData.food_classes).then(() => {
+    //       setLoading(false);
+    //     });
+    //     return returnData;
+    //   });
+    // } catch {
+    getCalClicked(["밥"]).then(() => {
+      setLoading(false);
+    });
+    // }
 
     return result;
   };
