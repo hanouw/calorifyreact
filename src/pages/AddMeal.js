@@ -101,11 +101,11 @@ const AddMeal = () => {
 
   const getCalClicked = async (data) => {
     const foods = data;
-    console.log(data);
     setData([]);
     try {
       for (let i = 0; i < foods.length; i++) {
         const result = await getFoodData(foods[i]);
+        console.log(result);
         const val = result.body.items;
         setData((prevData) => [...prevData, ...val]);
       }
