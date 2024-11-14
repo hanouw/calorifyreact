@@ -101,10 +101,16 @@ const AddMeal = () => {
 
   const getCalClicked = async (data) => {
     const foods = data;
+    console.log(data);
     setData([]);
-    for (let i = 0; i < foods.length; i++) {
-      const result = await getFoodData(foods[i]);
-      setData((prevData) => [...prevData, ...result.body.items]);
+    try {
+      for (let i = 0; i < foods.length; i++) {
+        const result = await getFoodData(foods[i]);
+        const val = result.body.items;
+        setData((prevData) => [...prevData, ...val]);
+      }
+    } catch {
+      console.log("get Cal has prob");
     }
   };
 
