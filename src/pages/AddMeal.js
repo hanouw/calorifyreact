@@ -50,7 +50,7 @@ const AddMeal = () => {
       const file = e.target.files[0];
       setImageFiles(file);
 
-      //console.log(file);
+      console.log(file);
 
       // 미리보기 이미지
       const reader = new FileReader();
@@ -64,7 +64,7 @@ const AddMeal = () => {
       // getName();
       getName(file);
     } catch {
-      //console.log("이미지 선택 안함");
+      console.log("이미지 선택 안함");
     }
   };
 
@@ -98,15 +98,12 @@ const AddMeal = () => {
   };
 
   const getCalClicked = async (data) => {
-    try {
-      //console.log(data);
-      const foods = data;
-      setData([]);
-      for (let i = 0; i < foods.length; i++) {
-        const result = await getFoodData(foods[i]);
-        setData((prevData) => [...prevData, ...result.body.items]);
-      }
-    } catch {}
+    const foods = data;
+    setData([]);
+    for (let i = 0; i < foods.length; i++) {
+      const result = await getFoodData(foods[i]);
+      setData((prevData) => [...prevData, ...result.body.items]);
+    }
   };
 
   const getName = async (data) => {
@@ -114,7 +111,6 @@ const AddMeal = () => {
     setLoading(true);
     try {
       result = await getYolo(data).then((returnData) => {
-        //console.log(returnData);
         getCalClicked(returnData.food_classes).then(() => {
           setLoading(false);
         });
@@ -139,8 +135,8 @@ const AddMeal = () => {
         loginInfo: loginInfo.memId,
         date: saveDate,
       }).then((result) => {
-        //console.log(result);
-        window.location.href = "http://3.39.76.255:3000/main";
+        console.log(result);
+        window.location.href = "http://localhost:3000/main";
       });
     }
   };
