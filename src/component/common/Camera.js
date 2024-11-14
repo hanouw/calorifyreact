@@ -15,7 +15,7 @@ const Camera = ({ callBackFn }) => {
 
   const handleSaveButton = () => {
     setOpen(false);
-    callBackFn({ image: image, imageFile: imageFile });
+    callBackFn({ image: image, imageFile: imageFile, isSuccess: true });
   };
 
   const startCamera = () => {
@@ -39,7 +39,7 @@ const Camera = ({ callBackFn }) => {
         });
     } else {
       alert("현재 카메라 기능을 지원하지 않습니다. 파일을 업로드해 주세요.");
-      setIsCameraOn(false);
+      callBackFn({ image: null, imageFile: null, isSuccess: false });
     }
   };
 

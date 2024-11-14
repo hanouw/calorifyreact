@@ -68,11 +68,13 @@ const AddMeal = () => {
     }
   };
 
-  const handleCameraData = async ({ image, imageFile }) => {
-    setIsCameraOn(!isCameraOn);
-    setImages(image);
-    setImageFiles(imageFile);
-    getName(imageFile);
+  const handleCameraData = async ({ image, imageFile, isSuccess }) => {
+    if (isSuccess) {
+      setIsCameraOn(!isCameraOn);
+      setImages(image);
+      setImageFiles(imageFile);
+      getName(imageFile);
+    }
     // const foods = getName(imageFile);
     // // setData([]);
     // // for (let i = 0; i < foods.length; i++) {
